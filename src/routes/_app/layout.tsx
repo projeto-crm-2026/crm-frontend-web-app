@@ -28,7 +28,7 @@ function RouteComponent() {
           <header className="flex h-16 shrink-0 items-center gap-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 lg:justify-between">
             <div className="mt-2 flex w-full items-center justify-start gap-2">
               <SidebarTrigger
-                className="-ml-1 cursor-pointer border-transparent pr-2 pl-4 text-slate-500"
+                className="text-foreground -ml-1 cursor-pointer border-transparent pr-2 pl-4"
                 id="sidebar-main"
               />
               <Breadcrumb>

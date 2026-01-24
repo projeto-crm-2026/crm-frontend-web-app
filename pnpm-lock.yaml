@@ -33,8 +33,8 @@ importers:
         specifier: ^1.13.2
         version: 1.13.2
       crm-project-ui:
-        specifier: ^0.1.39
-        version: 0.1.39(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(playwright@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))(vitest@4.0.18)
+        specifier: ^0.1.41
+        version: 0.1.41(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(playwright@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))(vitest@4.0.18)
       lucide-react:
         specifier: ^0.563.0
         version: 0.563.0(react@19.2.3)
@@ -2307,8 +2307,8 @@ packages:
   cookie-es@2.0.0:
     resolution: {integrity: sha512-RAj4E421UYRgqokKUmotqAwuplYw15qtdXfY+hGzgCJ/MBjCVZcSoHK/kH9kocfjRjcDME7IiDWR/1WX1TM2Pg==}
 
-  crm-project-ui@0.1.39:
-    resolution: {integrity: sha512-AjYEnmqDmJTw1M1rYPJrBdAR7dQIU7jglZktX8iSV2BukA5LZRLQpRmuwRdodanTrIuZgTLinIkvnxJqMb309w==}
+  crm-project-ui@0.1.41:
+    resolution: {integrity: sha512-zqQdeq/YCcq2LzTFqR2iI4BgmGeLQ8zQ2EloAUsTj7zzNKpNPMCO/Xa/3jWzUC9aTjyn5eXjs5bynyEfQohfEQ==}
     peerDependencies:
       react: ^19.0.0 || ^18.0.0
       react-dom: ^19.0.0 || ^18.0.0
@@ -6242,7 +6242,7 @@ snapshots:
 
   cookie-es@2.0.0: {}
 
-  crm-project-ui@0.1.39(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(playwright@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))(vitest@4.0.18):
+  crm-project-ui@0.1.41(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(playwright@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))(vitest@4.0.18):
     dependencies:
       '@headlessui/react': 2.2.9(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@hookform/resolvers': 5.2.2(react-hook-form@7.71.1(react@19.2.3))
