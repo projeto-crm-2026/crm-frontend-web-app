@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_app/')({
 function IndexPage() {
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold">Teste sidebar</h1>
+      <h1 className="text-3xl font-semibold">Teste sidebar</h1>
 
       <p className="mt-2 text-sm text-neutral-600">
         Testando conteudo dentro da sidebar do projeto de CRM
