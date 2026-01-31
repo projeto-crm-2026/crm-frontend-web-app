@@ -16,7 +16,8 @@ import {
   Newspaper,
   PieChart,
   Settings2,
-  User
+  User,
+  Calendar
 } from 'lucide-react'
 import type * as React from 'react'
 
@@ -66,6 +67,22 @@ const data = {
         {
           title: 'Favourites',
           url: '/companies/favourites'
+        }
+      ]
+    },
+    {
+      title: 'Agenda',
+      url: '/calendar',
+      icon: Calendar,
+      isActive: false,
+      items : [
+        {
+          title: 'My Calendar',
+          url: '/calendar'
+        },
+        {
+          title : 'New Event',
+          url : 'calendar/new-event'
         }
       ]
     },
