@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { NavigationHistory } from "../../components/shared/NavigationHistory";
 
 //@ts-ignore
 export const Route = createFileRoute("/_app/")({
