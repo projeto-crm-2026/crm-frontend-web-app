@@ -10,6 +10,7 @@ import {
 import {
   AudioWaveform,
   BookOpen,
+  Calendar,
   Command,
   GalleryVerticalEnd,
   Map,
@@ -49,7 +50,6 @@ const data = {
       plan: 'Free'
     }
   ],
-
   navMain: [
     {
       title: 'CRM',
@@ -79,7 +79,22 @@ const data = {
         }
       ]
     },
-
+    {
+      title: 'Agenda',
+      url: '/calendar',
+      icon: Calendar,
+      isActive: false,
+      items: [
+        {
+          title: 'My Calendar',
+          url: '/calendar'
+        },
+        {
+          title: 'New Event',
+          url: 'calendar/new-event'
+        }
+      ]
+    },
     {
       title: 'Vendas',
       url: '/vendas',
@@ -103,7 +118,6 @@ const data = {
         }
       ]
     },
-
     {
       title: 'Atendimento',
       url: '/atendimento',
@@ -123,7 +137,6 @@ const data = {
         }
       ]
     },
-
     {
       title: 'Relatórios',
       url: '/relatorios',
@@ -143,7 +156,6 @@ const data = {
         }
       ]
     },
-
     {
       title: 'Configurações',
       url: '/configuracoes',
@@ -171,7 +183,6 @@ const data = {
         }
       ]
     },
-
     {
       title: 'Documentação',
       url: '/documentacao',
@@ -196,7 +207,6 @@ const data = {
       ]
     }
   ],
-
   projects: [
     {
       name: 'Vendas & Marketing',

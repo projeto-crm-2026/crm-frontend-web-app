@@ -28,6 +28,7 @@ export default [
       'svg-jsx': svgJsx
     },
     rules: {
+      'prettier/prettier': 'off',
       'no-useless-constructor': 'off',
       'no-use-before-define': 'off',
       'space-before-function-paren': 'off',
