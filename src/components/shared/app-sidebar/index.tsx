@@ -32,6 +32,7 @@ const data = {
     email: 'm@example.com',
     avatar: '/avatars/shadcn.jpg'
   },
+
   teams: [
     {
       name: 'Acme Inc',
@@ -51,22 +52,30 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Search Leads',
-      url: '/',
+      title: 'CRM',
+      url: '/dashboard',
       icon: Map,
       isActive: true,
       items: [
         {
-          title: 'Map',
-          url: '/'
+          title: 'Visão Geral',
+          url: '/dashboard'
         },
         {
-          title: 'Catalog',
-          url: '/companies/catalog'
+          title: 'Contatos',
+          url: '/crm/contatos'
         },
         {
-          title: 'Favourites',
-          url: '/companies/favourites'
+          title: 'Empresas',
+          url: '/crm/empresas'
+        },
+        {
+          title: 'Segmentos',
+          url: '/crm/segmentos'
+        },
+        {
+          title: 'Anotações',
+          url: '/crm/anotacoes'
         }
       ]
     },
@@ -87,84 +96,126 @@ const data = {
       ]
     },
     {
-      title: 'Contacts',
-      url: '/contacts',
+      title: 'Vendas',
+      url: '/vendas',
+      icon: Newspaper,
+      items: [
+        {
+          title: 'Negócios (Deals)',
+          url: '/vendas/negocios'
+        },
+        {
+          title: 'Pedidos',
+          url: '/vendas/pedidos'
+        },
+        {
+          title: 'Produtos',
+          url: '/vendas/produtos'
+        },
+        {
+          title: 'Agenda de Reuniões',
+          url: '/vendas/agenda'
+        }
+      ]
+    },
+    {
+      title: 'Atendimento',
+      url: '/atendimento',
       icon: User,
       items: [
         {
-          title: 'Explore Contacts',
-          url: '/contacts'
+          title: 'Tickets',
+          url: '/atendimento/tickets'
         },
         {
-          title: 'Favourites',
-          url: '/contacts/favourites'
+          title: 'Central de Ajuda',
+          url: '/atendimento/central-ajuda'
+        },
+        {
+          title: 'Workflows',
+          url: '/atendimento/workflows'
         }
       ]
     },
     {
-      title: 'News',
-      url: '/news',
-      icon: Newspaper,
-      isActive: false,
+      title: 'Relatórios',
+      url: '/relatorios',
+      icon: PieChart,
       items: [
         {
-          title: 'Companies News',
-          url: '/news'
+          title: 'Relatórios de Vendas',
+          url: '/relatorios/vendas'
+        },
+        {
+          title: 'Relatórios de Atendimento',
+          url: '/relatorios/atendimento'
+        },
+        {
+          title: 'Análises de Engajamento',
+          url: '/relatorios/engajamento'
         }
       ]
     },
     {
-      title: 'Documentation',
-      url: '/documentation',
-      icon: BookOpen,
-      items: [
-        {
-          title: 'Introduction',
-          url: '/documentation/introduction'
-        },
-        {
-          title: 'Get Started',
-          url: '/documentation/get-start'
-        },
-        {
-          title: 'Tutorials',
-          url: '/documentation/tutorials'
-        },
-        {
-          title: 'Changelog',
-          url: '/documentation/changelog'
-        }
-      ]
-    },
-    {
-      title: 'Settings',
-      url: '#',
+      title: 'Configurações',
+      url: '/configuracoes',
       icon: Settings2,
       items: [
         {
-          title: 'General',
-          url: '/general'
+          title: 'Geral',
+          url: '/configuracoes/geral'
         },
         {
-          title: 'Billing',
-          url: '/billing'
+          title: 'Usuários & Permissões',
+          url: '/configuracoes/usuarios'
         },
         {
-          title: 'Limits',
-          url: '/limits'
+          title: 'Faturamento',
+          url: '/configuracoes/faturamento'
+        },
+        {
+          title: 'Limites & Plano',
+          url: '/configuracoes/limites'
+        },
+        {
+          title: 'Integrações',
+          url: '/configuracoes/integracoes'
+        }
+      ]
+    },
+    {
+      title: 'Documentação',
+      url: '/documentacao',
+      icon: BookOpen,
+      items: [
+        {
+          title: 'Introdução',
+          url: '/documentacao/introducao'
+        },
+        {
+          title: 'Primeiros Passos',
+          url: '/documentacao/primeiros-passos'
+        },
+        {
+          title: 'Tutoriais',
+          url: '/documentacao/tutoriais'
+        },
+        {
+          title: 'Changelog',
+          url: '/documentacao/changelog'
         }
       ]
     }
   ],
   projects: [
     {
-      name: 'Sales & Marketing',
-      url: '#',
+      name: 'Vendas & Marketing',
+      url: '/relatorios/vendas',
       icon: PieChart
     },
     {
-      name: 'Travel',
-      url: '#',
+      name: 'Mapa de Clientes',
+      url: '/crm/mapa-clientes',
       icon: Map
     }
   ]
