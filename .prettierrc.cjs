@@ -1,8 +1,8 @@
-export default {
+module.exports = {
   semi: false,
   singleQuote: true,
   arrowParens: 'avoid',
   trailingComma: 'none',
-  endOfLine: 'auto',
+  endOfLine: 'lf',
   plugins: ['prettier-plugin-tailwindcss']
 }
