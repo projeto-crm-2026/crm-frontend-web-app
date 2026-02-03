@@ -28,7 +28,7 @@ const CalendarLayout = ({ children }: PropsWithChildren) => {
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">CRM</BreadcrumbLink>
+                    <BreadcrumbLink href="#">Agenda</BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
