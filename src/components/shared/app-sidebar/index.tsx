@@ -84,14 +84,14 @@ const data = {
       url: '/calendar',
       icon: Calendar,
       isActive: false,
-      items : [
+      items: [
         {
           title: 'My Calendar',
           url: '/calendar'
         },
         {
-          title : 'New Event',
-          url : 'calendar/new-event'
+          title: 'New Event',
+          url: 'calendar/new-event'
         }
       ]
     },
