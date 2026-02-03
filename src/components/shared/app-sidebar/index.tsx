@@ -10,14 +10,14 @@ import {
 import {
   AudioWaveform,
   BookOpen,
+  Calendar,
   Command,
   GalleryVerticalEnd,
   Map,
   Newspaper,
   PieChart,
   Settings2,
-  User,
-  Calendar
+  User
 } from 'lucide-react'
 import type * as React from 'react'
 
