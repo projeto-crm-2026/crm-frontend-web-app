@@ -21,7 +21,6 @@ export default [
     },
     plugins: {
       '@typescript-eslint': typescript,
-      prettier,
       'import-helpers': importHelpers,
       'unused-imports': unusedImports,
       perfectionist,
