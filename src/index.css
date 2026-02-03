@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=TASA+Orbiter:wght@400..800&display=swap");
+
 @import "tailwindcss";
 @import "crm-project-ui/index.css";
-
-@import url('https://fonts.googleapis.com/css2?family=TASA+Orbiter:wght@400..800&display=swap');
 
 * {
   font-family: "TASA Orbiter", sans-serif;

@@ -16,7 +16,8 @@ import {
   Newspaper,
   PieChart,
   Settings2,
-  User
+  User,
+  Briefcase
 } from 'lucide-react'
 import type * as React from 'react'
 
@@ -68,6 +69,20 @@ const data = {
           url: '/companies/favourites'
         }
       ]
+    },
+    {
+      title : 'Organização',
+      url : '/organization',
+      icon : Briefcase,
+      isActive : false,
+      items: [{
+        title: 'Informações',
+        url : '/organization',
+      }, 
+      {
+        title : 'Api-Keys',
+        url : 'api-keys'
+      }]
     },
     {
       title: 'Contacts',
