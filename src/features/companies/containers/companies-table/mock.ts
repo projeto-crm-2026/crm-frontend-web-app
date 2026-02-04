@@ -1,0 +1,72 @@
+export const COMPANIES_MOCK = [
+  {
+    id: '1',
+    name: 'HubSpot',
+    domain: 'hubspot.com',
+    logo_url: 'https://cdn-icons-png.flaticon.com/512/5968/5968872.png',
+    owner_name: 'Vitor S.',
+    owner_avatar: 'https://github.com/shadcn.png',
+    lead_status: 'customer',
+    created_at: '2024-06-10T09:04:00Z',
+    last_activity_date: '2024-06-12T14:30:00Z',
+    phone: '+1 888-482-7768',
+    city: 'Cambridge',
+    country: 'United States'
+  },
+  {
+    id: '2',
+    name: 'Vercel',
+    domain: 'vercel.com',
+    logo_url: 'https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png',
+    owner_name: 'Diego F.',
+    owner_avatar: undefined,
+    lead_status: 'qualified',
+    created_at: '2024-05-15T10:00:00Z',
+    last_activity_date: '2024-06-11T09:15:00Z',
+    phone: '+1 555-0123',
+    city: 'San Francisco',
+    country: 'United States'
+  },
+  {
+    id: '3',
+    name: 'Nubank',
+    domain: 'nubank.com.br',
+    logo_url: 'https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png',
+    owner_name: 'Amanda B.',
+    owner_avatar: undefined,
+    lead_status: 'negotiation',
+    created_at: '2024-01-20T16:45:00Z',
+    last_activity_date: '2024-06-13T11:20:00Z',
+    phone: '+55 11 4020-0185',
+    city: 'São Paulo',
+    country: 'Brazil'
+  },
+  {
+    id: '4',
+    name: 'Acme Corp',
+    domain: 'acme.inc',
+    logo_url: undefined,
+    owner_name: undefined,
+    owner_avatar: undefined,
+    lead_status: 'new',
+    created_at: '2024-06-13T08:00:00Z',
+    last_activity_date: '2024-06-13T08:00:00Z',
+    phone: undefined,
+    city: undefined,
+    country: undefined
+  },
+  {
+    id: '5',
+    name: 'Linear',
+    domain: 'linear.app',
+    logo_url: 'https://images.seeklogo.com/logo-png/58/2/linear-app-icon-logo-png_seeklogo-586481.png',
+    owner_name: 'Vitor S.',
+    owner_avatar: 'https://github.com/shadcn.png',
+    lead_status: 'churned',
+    created_at: '2023-11-05T14:20:00Z',
+    last_activity_date: '2024-02-10T10:00:00Z',
+    phone: '+1 415-555-9999',
+    city: 'Remote',
+    country: 'Global'
+  }
+]

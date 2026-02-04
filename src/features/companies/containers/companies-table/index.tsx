@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {
   Search,
   MoreVertical,
-  User,
+  Building2,
   ChevronDown,
   Filter,
   Plus
@@ -15,66 +15,63 @@ import {
   TableHeader,
   TableRow
 } from 'crm-project-ui'
-import { CONTACTS_MOCK } from './mock'
+import { COMPANIES_MOCK } from './mock'
 import { formatDate } from '../../../../utils/helpers/format-date'
-import { StatusBadge } from '../../components/status-badge'
+import { StatusBadge } from '../../../contacts/components/status-badge'
 
-export const ContactsTableContainer = () => {
+export const CompaniesTableContainer = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredContacts = CONTACTS_MOCK.filter(
-    contact =>
-      contact.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      contact.email.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredCompanies = COMPANIES_MOCK.filter(
+    company =>
+      company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      company.domain.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
   return (
     <div className="flex w-full flex-col gap-4 p-6 lg:gap-6">
       <div className="mb-4 flex items-center justify-center rounded-md border-4 border-dashed border-[#dbded4] px-6 py-8">
         <div className="flex w-full items-center justify-center gap-8 lg:gap-10">
-          <figure className="max-w-[140px]">
+          <figure className="max-w-[160px]">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Contacts_%28iOS%29.png"
-              alt="Contacts"
+              src="https://cdn-icons-png.flaticon.com/512/4406/4406356.png"
+              alt="Companies"
+              className="opacity-80"
               fetchPriority="high"
               loading="eager"
+              width={120}
             />
           </figure>
           <article className="flex max-w-xl flex-col gap-2">
-            <h2 className="text-2xl font-bold">Bem-vindo aos Contatos</h2>
+            <h2 className="text-2xl font-bold">Bem-vindo às Empresas</h2>
             <ul className="flex flex-col gap-1">
-              <li className="text-muted-foreground text-base">
-                Os contatos ajudam você a organizar e gerenciar todos os seus
-                relacionamentos em um único lugar.
-              </li>
-              <li className="text-muted-foreground text-base">
-                Sua equipe talvez já esteja usando os contatos. Você pode
-                explorar os registros existentes ou começar criando um novo
-                contato.
+              <li className="text-gray-600 text-base">
+                As empresas ajudam você a organizar as organizações com as quais você trabalha. Sincronize dados automaticamente ou adicione registros
+                manualmente para manter sua base atualizada.
               </li>
             </ul>
             <div className="mt-2 flex items-center gap-4">
-              <button className="flex items-center justify-center gap-1.5 rounded-md border border-blue-400 px-3 py-1 text-sm font-medium text-blue-500 transition-all duration-300 hover:bg-blue-50 disabled:pointer-events-none disabled:opacity-50">
+              <button className="flex items-center justify-center gap-1.5 rounded-md border border-blue-400 px-3 py-1 text-base font-medium text-blue-500 transition-all duration-300 hover:bg-blue-50 disabled:pointer-events-none disabled:opacity-50 bg-white">
                 <Plus className="h-4 w-4" />
-                Criar contato
+                Criar empresa
               </button>
             </div>
           </article>
         </div>
       </div>
-      <div className="flex flex-col gap-4 rounded-md border border-gray-300 px-4 bg-white py-5 lg:gap-6">
-        <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 bg-white border border-gray-300 rounded-md px-4 py-5 lg:gap-6">
+        <div className="flex items-center justify-between bg-white">
           <article className="flex flex-col">
-            <h1 className="text-2xl font-semibold tracking-tight">Contatos</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Empresas</h1>
             <p className="text-muted-foreground mt-1 text-sm">
-              Gerencie seus relacionamentos de contato e acompanhe o engajamento
+              Gerencie sua carteira de clientes e parceiros
             </p>
           </article>
           <button
             type="button"
             className="text-primary-foreground inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-1.5 text-sm font-medium transition-all duration-300 hover:brightness-110"
           >
-            Adicionar Contato
+            Adicionar Empresa
           </button>
         </div>
 
@@ -84,7 +81,7 @@ export const ContactsTableContainer = () => {
             <input
               className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring w-full rounded-md border py-2 pr-3 pl-10 text-sm transition-all duration-300 focus-visible:ring-1 focus-visible:outline-none"
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Buscar contato"
+              placeholder="Buscar empresa ou domínio"
               type="text"
               value={searchQuery}
             />
@@ -100,63 +97,86 @@ export const ContactsTableContainer = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[300px]">Nome</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Responsável</TableHead>
+                <TableHead className="w-[300px]">Empresa</TableHead>
+                <TableHead>Proprietário</TableHead>
+                <TableHead>Status do Lead</TableHead>
                 <TableHead>Data de criação</TableHead>
                 <TableHead>Última atividade</TableHead>
-                <TableHead>Empresa</TableHead>
                 <TableHead>Telefone</TableHead>
+                <TableHead>Localização</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredContacts.length > 0 ? (
-                filteredContacts.map(contact => (
-                  <TableRow key={contact.id}>
+              {filteredCompanies.length > 0 ? (
+                filteredCompanies.map(company => (
+                  <TableRow key={company.id}>
                     <TableCell>
-                      <div className="flex items-center gap-3">
-                        <figure className="flex h-10 w-10 items-center justify-center rounded-md bg-neutral-200">
-                          <User className="text-muted-foreground h-5 w-5" />
+                      <div className="flex items-center gap-4 pl-1">
+                        <figure className="flex h-9 w-9 items-center justify-center rounded-md bg-gray-100 p-1.5">
+                          {company.logo_url ? (
+                            <img
+                              src={company.logo_url}
+                              alt={company.name}
+                              className="h-auto w-auto rounded-md object-contain"
+                            />
+                          ) : (
+                            <Building2 className="text-muted-foreground h-6.5 w-6.5" />
+                          )}
                         </figure>
                         <div>
-                          <div className="font-medium">{contact.full_name}</div>
-                          <div className="text-muted-foreground text-sm">
-                            {contact.email}
+                          <div className="font-medium">{company.name}</div>
+                          <div className="text-muted-foreground -mt-0.5 text-sm">
+                            {company.domain}
                           </div>
                         </div>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <StatusBadge status={contact.status} />
+                      <div className="flex items-center gap-2">
+                        {company.owner_avatar ? (
+                          <img
+                            src={company.owner_avatar}
+                            className="h-6 w-6 rounded-full"
+                            alt=""
+                          />
+                        ) : (
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full border border-blue-100 bg-blue-50 text-[10px] font-bold text-blue-400">
+                            {company.owner_name?.charAt(0) || '-'}
+                          </div>
+                        )}
+                        <span className="text-sm text-neutral-700">
+                          {company.owner_name || 'Sem proprietário'}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <StatusBadge status={company.lead_status} />
                     </TableCell>
                     <TableCell>
                       <span className="text-muted-foreground text-sm">
-                        {contact.created_by_id
-                          ? 'Nome do cara futuramente**'
-                          : 'Sem responsável'}
+                        {formatDate({ dateString: company.created_at })}
                       </span>
                     </TableCell>
                     <TableCell>
                       <span className="text-sm">
-                        {formatDate({ dateString: contact.created_at })}
+                        {formatDate({ dateString: company.last_activity_date })}
                       </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">
-                        {formatDate({ dateString: contact.updated_at })}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{contact.company_name}</span>
                     </TableCell>
                     <TableCell>
                       <span className="text-muted-foreground text-sm">
-                        {contact.phone}
+                        {company.phone || '--'}
                       </span>
                     </TableCell>
                     <TableCell>
-                      <button className="hover:bg-accent hover:text-accent-foreground inline-flex h-8 w-8 items-center justify-center rounded-md">
+                      <span className="text-sm text-neutral-600">
+                        {company.city
+                          ? `${company.city}, ${company.country}`
+                          : '--'}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <button className="hover:bg-accent hover:text-accent-foreground inline-flex h-8 w-8 items-center justify-center rounded-md transition-all duration-300">
                         <MoreVertical className="h-4 w-4" />
                         <span className="sr-only">Actions</span>
                       </button>
@@ -167,7 +187,7 @@ export const ContactsTableContainer = () => {
                 <TableRow>
                   <TableCell className="h-24 text-center" colSpan={8}>
                     <div className="text-muted-foreground">
-                      No contacts found.
+                      Nenhuma empresa encontrada.
                     </div>
                   </TableCell>
                 </TableRow>
@@ -177,8 +197,8 @@ export const ContactsTableContainer = () => {
         </div>
         <div className="text-muted-foreground flex items-center justify-between text-sm">
           <div>
-            Exibindo {filteredContacts.length} de {CONTACTS_MOCK.length}{' '}
-            contato(s)
+            Exibindo {filteredCompanies.length} de {COMPANIES_MOCK.length}{' '}
+            empresa(s)
           </div>
           <div className="flex items-center gap-2">
             <button className="border-input inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-500 disabled:pointer-events-none disabled:opacity-50">
