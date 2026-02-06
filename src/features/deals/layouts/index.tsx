@@ -13,7 +13,7 @@ import type { PropsWithChildren } from 'react'
 
 import { AppSidebar } from '../../../components/shared/app-sidebar'
 
-const ContactsLayout = ({ children }: PropsWithChildren) => {
+const DealsLayout = ({ children }: PropsWithChildren) => {
   return (
     <SidebarProvider>
       <main className="overflow-hidden flex w-full text-foreground">
@@ -32,7 +32,7 @@ const ContactsLayout = ({ children }: PropsWithChildren) => {
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage>Contatos</BreadcrumbPage>
+                    <BreadcrumbPage>Deals</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
@@ -45,4 +45,4 @@ const ContactsLayout = ({ children }: PropsWithChildren) => {
   )
 }
 
-export default ContactsLayout
+export default DealsLayout

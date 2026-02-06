@@ -13,6 +13,7 @@ import { Route as AppLayoutRouteImport } from './routes/_app/layout'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppCalendarIndexRouteImport } from './routes/_app/calendar/index'
 import { Route as AppCrmEmpresasIndexRouteImport } from './routes/_app/crm/empresas/index'
+import { Route as AppCrmDealsIndexRouteImport } from './routes/_app/crm/deals/index'
 import { Route as AppCrmContatosIndexRouteImport } from './routes/_app/crm/contatos/index'
 
 const AppLayoutRoute = AppLayoutRouteImport.update({
@@ -34,6 +35,11 @@ const AppCrmEmpresasIndexRoute = AppCrmEmpresasIndexRouteImport.update({
   path: '/crm/empresas/',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppCrmDealsIndexRoute = AppCrmDealsIndexRouteImport.update({
+  id: '/crm/deals/',
+  path: '/crm/deals/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 const AppCrmContatosIndexRoute = AppCrmContatosIndexRouteImport.update({
   id: '/crm/contatos/',
   path: '/crm/contatos/',
@@ -44,12 +50,14 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/calendar/': typeof AppCalendarIndexRoute
   '/crm/contatos/': typeof AppCrmContatosIndexRoute
+  '/crm/deals/': typeof AppCrmDealsIndexRoute
   '/crm/empresas/': typeof AppCrmEmpresasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/calendar': typeof AppCalendarIndexRoute
   '/crm/contatos': typeof AppCrmContatosIndexRoute
+  '/crm/deals': typeof AppCrmDealsIndexRoute
   '/crm/empresas': typeof AppCrmEmpresasIndexRoute
 }
 export interface FileRoutesById {
@@ -58,19 +66,26 @@ export interface FileRoutesById {
   '/_app/': typeof AppIndexRoute
   '/_app/calendar/': typeof AppCalendarIndexRoute
   '/_app/crm/contatos/': typeof AppCrmContatosIndexRoute
+  '/_app/crm/deals/': typeof AppCrmDealsIndexRoute
   '/_app/crm/empresas/': typeof AppCrmEmpresasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar/' | '/crm/contatos/' | '/crm/empresas/'
+  fullPaths:
+    | '/'
+    | '/calendar/'
+    | '/crm/contatos/'
+    | '/crm/deals/'
+    | '/crm/empresas/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/crm/contatos' | '/crm/empresas'
+  to: '/' | '/calendar' | '/crm/contatos' | '/crm/deals' | '/crm/empresas'
   id:
     | '__root__'
     | '/_app'
     | '/_app/'
     | '/_app/calendar/'
     | '/_app/crm/contatos/'
+    | '/_app/crm/deals/'
     | '/_app/crm/empresas/'
   fileRoutesById: FileRoutesById
 }
@@ -108,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCrmEmpresasIndexRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/crm/deals/': {
+      id: '/_app/crm/deals/'
+      path: '/crm/deals'
+      fullPath: '/crm/deals/'
+      preLoaderRoute: typeof AppCrmDealsIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/crm/contatos/': {
       id: '/_app/crm/contatos/'
       path: '/crm/contatos'
@@ -122,6 +144,7 @@ interface AppLayoutRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AppCalendarIndexRoute: typeof AppCalendarIndexRoute
   AppCrmContatosIndexRoute: typeof AppCrmContatosIndexRoute
+  AppCrmDealsIndexRoute: typeof AppCrmDealsIndexRoute
   AppCrmEmpresasIndexRoute: typeof AppCrmEmpresasIndexRoute
 }
 
@@ -129,6 +152,7 @@ const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AppCalendarIndexRoute: AppCalendarIndexRoute,
   AppCrmContatosIndexRoute: AppCrmContatosIndexRoute,
+  AppCrmDealsIndexRoute: AppCrmDealsIndexRoute,
   AppCrmEmpresasIndexRoute: AppCrmEmpresasIndexRoute,
 }
 

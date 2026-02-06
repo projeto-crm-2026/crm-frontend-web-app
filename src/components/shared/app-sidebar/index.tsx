@@ -70,8 +70,8 @@ const data = {
           url: '/crm/empresas'
         },
         {
-          title: 'Segmentos',
-          url: '/crm/segmentos'
+          title: 'Deals',
+          url: '/crm/deals'
         },
         {
           title: 'Anotações',
