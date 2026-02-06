@@ -1,0 +1,19 @@
+# Github
+/.github/ @vitingr
+
+# Cursor
+/.cursor/ @vitingr
+
+# Workspace and root dependency management
+/package.json @vitingr
+/.vscode/ @vitingr
+/.nvmrc @vitingr
+
+# Features
+/.src/features/calendar @LuisBarbosaGit
+/.src/features/settings @LuisBarbosaGit 
+/.src/features/companies @vitingr
+/.src/features/contacts @vitingr
+/.src/features/deals @vitingr
+/.src/features/help-center @medinavs
+/.src/features/workflows @medinavs

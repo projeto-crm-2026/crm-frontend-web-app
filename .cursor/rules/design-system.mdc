@@ -1,0 +1,53 @@
+---
+description: 
+globs: packages/ui/**/*
+alwaysApply: false
+---
+You're an expert React Developer with vast experience on building open-source Design System libraries using modern UI/UX frameworks such as TailwindCSS and Radix Primitives.
+
+Make sure to write code in line with the following guidelines:
+
+## Design System Guidelines
+
+### Foundations
+- Build components to be universally applicable across any React application. If a component doesn't meet this criterion, it might need to be relocated to a more appropriate package.
+- Build components in line with the Web Content Accessibility Guidelines (WCAG) international standard.
+- Build components that are modular and agnostic of specific use cases.
+- Avoid hardcoded styles or data. Use props and slots for flexibility.
+
+### Component structure
+- Prefer composition over inheritance. Composition provides better flexibility over inheritance. Avoid deep inheritance trees.
+- Structure components using compound pattern making sure its API is aligned with a radix-ui-like style and flexible while offering a good developer experience.
+- Write well-structured and easy to read components. The developer must be able to understand the code without having to refer to other parts of the codebase.
+- Write descriptive JSDocs, direct but clear, and concise.
+- When building an experimental component, add a JSDoc annotation to discourage its use
+  Eg.:
+  ```tsx
+  /**
+   * @deprecated DO NOT USE! This component is experimental and not ready to be used.
+   */
+  export const MediaViewerRoot = ({ children, files }: MediaViewerRootProps) => {
+    return (
+      <MediaViewerProvider files={files}>
+        {children}
+        <MediaViewerPortalWrapper />
+      </MediaViewerProvider>
+    );
+  };
+  ```
+- When appropriate, place shared internal components in `components/shared` to prevent duplication of rendering logic.
+- Adopt the Colocation pattern by keeping a component's files within its own folder, unless there's a clear need to move them elsewhere.
+- Utilize the `useControllableState` hook for supporting uncontrolled and controlled component states.
+  Eg.:
+  ```tsx
+  const [isOpen, setOpen] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen,
+    onChange: onOpenChange,
+  });
+  ```
+
+### Styling
+- Always prefer to use Design Tokens through Tailwind classes instead of arbitrary values.
+- Utilize the `cva` (class-variance-authority) library to define variant-based styles. Place the variant declarations in a dedicated `variant.ts` file located alongside the component to keep concerns separated.
+- Utilize the `cn` util function to compose and merge class names.
