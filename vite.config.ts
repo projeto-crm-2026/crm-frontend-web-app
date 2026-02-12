@@ -19,12 +19,9 @@ export default defineConfig({
     react()
   ],
   resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: path.resolve('./src')
-      }
-    ]
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
   },
   server: {
     open: true,
