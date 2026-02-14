@@ -56,7 +56,7 @@
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-storybook": "9.0.14",
+    "eslint-plugin-storybook": "9.0.18",
     "eslint-plugin-svg-jsx": "^1.2.4",
     "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^16.5.0",
