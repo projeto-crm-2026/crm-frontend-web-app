@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
-import { Handshake, Target, Users } from 'lucide-react'
+import { Handshake, Users } from 'lucide-react'
 import DashboardLayout from '../../features/dashboard/layout'
 import { MiniTrendChart } from '../../components/ui/mini-trend-chart'
 import { SemiCircleProgress } from '../../components/ui/semi-circle-progress'
@@ -80,7 +80,7 @@ function IndexPage() {
     <div className="min-h-screen w-full overflow-x-auto">
       <DashboardLayout>
         <div className="flex flex-col gap-8 p-6">
-          <section className="flex flex-col gap-6 rounded-xl bg-white p-5  sm:flex-row">
+          <section className="flex flex-col gap-6 rounded-xl bg-white p-5 sm:flex-row">
             <div className="flex flex-1 flex-col">
               <h2 className="mb-4 text-xl font-semibold text-slate-800">
                 Informações rápidas
