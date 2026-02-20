@@ -39,11 +39,15 @@ export function useChat() {
     const connectWs = useCallback(
         (chatId: number) => {
             if (wsRef.current) {
+                wsRef.current.onmessage = null
+                wsRef.current.onerror = null
+                wsRef.current.onclose = null
                 wsRef.current.close()
                 wsRef.current = null
             }
 
             setWsError(null)
+
             const ws = connectWebSocket(chatId)
 
             ws.onmessage = (event: MessageEvent) => {
@@ -63,7 +67,9 @@ export function useChat() {
             }
 
             ws.onclose = () => {
-                wsRef.current = null
+                if (wsRef.current === ws) {
+                    wsRef.current = null
+                }
             }
 
             wsRef.current = ws
@@ -89,7 +95,7 @@ export function useChat() {
 
     const sendMessage = useCallback(
         (content: string) => {
-            if (wsRef.current?.readyState !== WebSocket.OPEN || !activeChat) return
+            if (wsRef.current?.readyState !== WebSocket.OPEN) return
 
             const payload = {
                 type: 'message',
@@ -98,7 +104,7 @@ export function useChat() {
 
             wsRef.current.send(JSON.stringify(payload))
         },
-        [activeChat]
+        []
     )
 
     useEffect(() => {
