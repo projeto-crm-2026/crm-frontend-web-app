@@ -24,6 +24,8 @@ import {
   LogOut,
   Sparkles
 } from 'lucide-react'
+import { logout } from '../../../../features/auth/services/auth-service'
+import { useNavigate } from '@tanstack/react-router'
 
 export function NavUser({
   user
@@ -35,6 +37,17 @@ export function NavUser({
   }
 }) {
   const { isMobile, state } = useSidebar()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        navigate({ to: '/login' })
+      })
+      .catch((error) => {
+        console.error('Logout failed:', error)
+      })
+  }
 
   return (
     <SidebarMenu>
@@ -99,7 +112,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout} className='cursor-pointer'>
               <LogOut />
               Log out
             </DropdownMenuItem>

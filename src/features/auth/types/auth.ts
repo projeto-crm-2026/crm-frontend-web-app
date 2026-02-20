@@ -1,15 +1,21 @@
 import { z } from 'zod'
 
 export const loginRequestSchema = z.object({
-  email: z.email('E-mail inválido'),
-  password: z.string().min(1, 'Senha é obrigatória'),
+  email: z.email(),
+  password: z.string().min(1),
 })
 
-export const authResponseSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  email: z.string(),
+export const loginResponseSchema = z.object({
+  user: z.object({
+    id: z.number(),
+    uuid: z.uuid(),
+    name: z.string(),
+    email: z.email(),
+    role: z.string(),
+    status: z.string(),
+    organization_id: z.uuid(),
+  })
 })
 
 export type LoginRequest = z.infer<typeof loginRequestSchema>
-export type AuthResponse = z.infer<typeof authResponseSchema>
+export type LoginResponse = z.infer<typeof loginResponseSchema>
