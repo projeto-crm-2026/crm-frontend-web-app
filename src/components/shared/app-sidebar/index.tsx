@@ -53,13 +53,13 @@ const data = {
   navMain: [
     {
       title: 'CRM',
-      url: '/dashboard',
+      url: '/',
       icon: Map,
       isActive: true,
       items: [
         {
           title: 'Visão Geral',
-          url: '/dashboard'
+          url: '/'
         },
         {
           title: 'Contatos',
