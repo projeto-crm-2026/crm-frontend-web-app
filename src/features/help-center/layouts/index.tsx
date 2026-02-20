@@ -28,7 +28,7 @@ const HelpCenterLayout = ({ children }: PropsWithChildren) => {
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">Atendimento</BreadcrumbLink>
+                    <BreadcrumbLink href="/atendimento">Atendimento</BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>

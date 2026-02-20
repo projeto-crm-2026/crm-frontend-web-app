@@ -15,6 +15,7 @@ export const HelpCenterFeature = () => {
     selectChat,
     sendMessage,
     refetchChats,
+    clearError,
   } = useChat()
 
   return (
@@ -23,7 +24,7 @@ export const HelpCenterFeature = () => {
         {error && (
           <ErrorBanner
             message={error}
-            onDismiss={() => {}}
+            onDismiss={clearError}
           />
         )}
         <div className="flex min-h-0 flex-1 overflow-hidden">

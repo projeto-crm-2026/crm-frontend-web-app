@@ -53,7 +53,9 @@ export function useChat() {
                         chatKeys.messages(chatId),
                         (old = []) => [...old, parsed]
                     )
-                } catch {}
+                } catch (err) {
+                    console.error('[useChat] Failed to parse WebSocket message:', err)
+                }
             }
 
             ws.onerror = () => {
@@ -112,6 +114,8 @@ export function useChat() {
         (chatsError instanceof Error ? chatsError.message : null) ??
         (messagesError instanceof Error ? messagesError.message : null)
 
+    const clearError = useCallback(() => setWsError(null), [])
+
     return {
         chats,
         activeChat,
@@ -122,5 +126,6 @@ export function useChat() {
         selectChat,
         sendMessage,
         refetchChats,
+        clearError,
     }
 }

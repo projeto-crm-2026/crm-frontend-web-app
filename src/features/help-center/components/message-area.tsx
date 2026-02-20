@@ -29,6 +29,8 @@ export function MessageArea({
   useEffect(() => {
     const prevCount = prevMessageCountRef.current
     const currentCount = messages.length
+    prevMessageCountRef.current = currentCount
+
 
     if (currentCount > prevCount && prevCount > 0) {
       const newMsgs = messages.slice(prevCount)
@@ -41,7 +43,6 @@ export function MessageArea({
       return () => clearTimeout(timeout)
     }
 
-    prevMessageCountRef.current = currentCount
   }, [messages])
 
   const scrollToBottom = useCallback((smooth = true) => {

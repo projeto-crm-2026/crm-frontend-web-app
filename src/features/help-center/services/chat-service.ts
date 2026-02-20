@@ -38,6 +38,6 @@ export async function createChat(data: CreateChatRequest): Promise<Chat> {
 }
 
 export function connectWebSocket(chatId: number, visitorId?: string): WebSocket {
-    const params = visitorId ? `?visitor_id=${visitorId}` : ''
+    const params = visitorId ? `?visitor_id=${encodeURIComponent(visitorId)}` : ''
     return new WebSocket(`${WS_BASE_URL}/ws/chat/${chatId}${params}`)
 }
