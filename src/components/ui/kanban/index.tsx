@@ -82,7 +82,7 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   return (
     <div
       className={cn(
-        'w-8flex-col diyolow-hidden flex rounded-sm border border-gray-300 bg-white text-xs transition-all duration-300 xl:w-full xl:min-w-0',
+        'flex w-80 flex-col overflow-hidden rounded-sm border border-gray-300 bg-white text-xs transition-all duration-300 xl:w-full xl:min-w-0',
         isOver ? 'ring-primary' : 'ring-transparent',
         className
       )}
@@ -114,7 +114,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
   } = useSortable({
     id
   })
-  const { activeCardId } = useContext(KanbanContext) as KanbanContextProps
+  const { activeCardId } = useContext(KanbanContext)
 
   const style = {
     transition,
@@ -185,7 +185,7 @@ export type KanbanHeaderProps = HTMLAttributes<HTMLDivElement>
 
 export const KanbanHeader = ({ className, ...props }: KanbanHeaderProps) => (
   <div
-    className={cn('idebar m-0 px-2 py-2.5 text-sm font-semibold', className)}
+    className={cn('bg-sidebar m-0 px-2 py-2.5 text-sm font-semibold', className)}
     {...props}
   />
 )
@@ -328,7 +328,7 @@ export const KanbanProvider = <
         <div className={cn('flex gap-4', className)}>
           {columns.map(column => children(column))}
         </div>
-        {typeof window !== 'undefined' &&
+        {globalThis.window !== undefined &&
           createPortal(
             <DragOverlay>
               <t.Out />

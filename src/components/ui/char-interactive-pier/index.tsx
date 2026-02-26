@@ -56,11 +56,15 @@ const chartConfig = {
 
 export function ChartPieInteractive() {
   const id = 'pie-interactive'
-  const [activeitem, setActiveItem] = useState(desktopData[0].type)
+  const [activeItem, setActiveItem] = useState(desktopData[0]?.type ?? '')
   const activeIndexMemo = React.useMemo(
-    () => desktopData.findIndex(item => item.type === activeitem),
-    [activeitem]
+    () => {
+      const index = desktopData.findIndex(item => item.type === activeItem)
+      return Math.max(index, 0)
+    },
+    [activeItem]
   )
+
 
   const items = React.useMemo(() => desktopData.map(item => item.type), [])
 
@@ -72,10 +76,10 @@ export function ChartPieInteractive() {
           <CardTitle>Resumo de Deals</CardTitle>
           <CardDescription>January - June 2024</CardDescription>
         </div>
-        <Select onValueChange={setActiveItem} value={activeitem}>
+        <Select onValueChange={setActiveItem} value={activeItem}>
           <SelectTrigger
             aria-label="Select a value"
-            className="ml-auto h-9 w-[160px] rounded-lg pl-2.5"
+            className="ml-auto h-9 w-40 rounded-lg pl-2.5"
           >
             <SelectValue placeholder="Status" />
           </SelectTrigger>
@@ -89,16 +93,16 @@ export function ChartPieInteractive() {
 
               return (
                 <SelectItem
-                  className="er gap-2 rounded-lg [&_span]:flex"
+                  className="gap-2 rounded-lg [&_span]:flex"
                   key={key}
                   value={key}
                 >
-                  <div className="text-md text-md items-c flex justify-center gap-2">
+                  <div className="text-md flex items-center justify-center gap-2">
                     <span
                       style={{
                         backgroundColor: `var(--color-${key})`
                       }}
-                      className="ro my-auto flex h-3 w-3 shrink-0"
+                      className="rounded-full my-auto flex h-3 w-3 shrink-0"
                     />
                     {config?.label}
                   </div>
@@ -110,7 +114,7 @@ export function ChartPieInteractive() {
       </CardHeader>
       <CardContent className="flex flex-1 justify-center pb-0">
         <ChartContainer
-          className="mx-auto aspect-square w-full max-w-[300px]"
+          className="mx-auto aspect-square w-full max-w-75"
           config={chartConfig}
           id={id}
         >
@@ -120,7 +124,7 @@ export function ChartPieInteractive() {
               cursor={false}
             />
             <Pie
-              activeShape={({ outerRadius = 0, ...props }: any) => (
+              shape={({ outerRadius = 0, ...props }: any) => (
                 <g>
                   <Sector {...props} outerRadius={outerRadius + 10} />
                   <Sector
@@ -133,7 +137,6 @@ export function ChartPieInteractive() {
               onClick={data => {
                 setActiveItem(data.type)
               }}
-              activeIndex={activeIndexMemo}
               className="hover:cursor-pointer"
               data={desktopData}
               dataKey="value"
