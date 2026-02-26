@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { useState } from 'react'
+import type { PieSectorDataItem } from 'recharts/types/polar/Pie'
 import { Label, Pie, PieChart, Sector } from 'recharts'
 
 import {
@@ -54,6 +55,29 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
+function ActiveSector({
+  outerRadius = 0,
+  ...props
+}: PieSectorDataItem & { outerRadius?: number }) {
+  return (
+    <g>
+      <Sector {...props} outerRadius={outerRadius + 10} />
+      <Sector
+        {...props}
+        innerRadius={outerRadius + 12}
+        outerRadius={outerRadius + 25}
+      />
+    </g>
+  )
+}
+
+function InactiveSector({
+  outerRadius = 0,
+  ...props
+}: PieSectorDataItem & { outerRadius?: number }) {
+  return <Sector {...props} outerRadius={outerRadius} />
+}
+
 export function ChartPieInteractive() {
   const id = 'pie-interactive'
   const [activeItem, setActiveItem] = useState(desktopData[0]?.type ?? '')
@@ -65,6 +89,47 @@ export function ChartPieInteractive() {
     [activeItem]
   )
 
+
+  const renderShape = React.useCallback(
+    (props: any) =>
+      props.index === activeIndexMemo ? (
+        <ActiveSector {...props} />
+      ) : (
+        <InactiveSector {...props} />
+      ),
+    [activeIndexMemo]
+  )
+
+  const renderLabelContent = React.useCallback(
+    ({ viewBox }: any) => {
+      if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+        return (
+          <text
+            dominantBaseline="middle"
+            textAnchor="middle"
+            x={viewBox.cx}
+            y={viewBox.cy}
+          >
+            <tspan
+              className="fill-foreground text-3xl font-bold"
+              x={viewBox.cx}
+              y={viewBox.cy}
+            >
+              {desktopData[activeIndexMemo].value.toLocaleString()}
+            </tspan>
+            <tspan
+              className="fill-muted-foreground"
+              x={viewBox.cx}
+              y={(viewBox.cy || 0) + 24}
+            >
+              Deals
+            </tspan>
+          </text>
+        )
+      }
+    },
+    [activeIndexMemo]
+  )
 
   const items = React.useMemo(() => desktopData.map(item => item.type), [])
 
@@ -124,16 +189,7 @@ export function ChartPieInteractive() {
               cursor={false}
             />
             <Pie
-              shape={({ outerRadius = 0, ...props }: any) => (
-                <g>
-                  <Sector {...props} outerRadius={outerRadius + 10} />
-                  <Sector
-                    {...props}
-                    innerRadius={outerRadius + 12}
-                    outerRadius={outerRadius + 25}
-                  />
-                </g>
-              )}
+              shape={renderShape}
               onClick={data => {
                 setActiveItem(data.type)
               }}
@@ -144,35 +200,7 @@ export function ChartPieInteractive() {
               nameKey="type"
               strokeWidth={5}
             >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                    return (
-                      <text
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                      >
-                        <tspan
-                          className="fill-foreground text-3xl font-bold"
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                        >
-                          {desktopData[activeIndexMemo].value.toLocaleString()}
-                        </tspan>
-                        <tspan
-                          className="fill-muted-foreground"
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                        >
-                          Deals
-                        </tspan>
-                      </text>
-                    )
-                  }
-                }}
-              />
+              <Label content={renderLabelContent} />
             </Pie>
           </PieChart>
         </ChartContainer>
