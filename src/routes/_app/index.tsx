@@ -8,10 +8,11 @@ import {
 } from 'lucide-react'
 import DashboardLayout from '../../features/dashboard/layout'
 import { MiniTrendChart } from '../../components/ui/mini-trend-chart'
-import { SemiCircleProgress } from '../../components/ui/semi-circle-progress'
 import { TypeAnimation } from 'react-type-animation'
-import { BarChart, Bar, XAxis, YAxis } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { useState } from 'react'
+import { ChartRadialStacked } from '../../components/ui/radial-chart'
+import { ChartContainer, type ChartConfig } from '../../components/ui/chart'
 
 export const Route = createFileRoute('/_app/')({
   component: IndexPage
@@ -65,25 +66,29 @@ const DEALS_PERCENTAGES = [
     title: 'Em proposta',
     percentage: 28,
     label: 'do total de deals',
-    color: 'text-blue-600'
+    color: 'blue',
+    total: 100
   },
   {
     title: 'Em negociação',
     percentage: 42,
     label: 'do total de deals',
-    color: 'text-yellow-400'
+    color: 'yellow',
+    total: 100
   },
   {
     title: 'Ganho',
     percentage: 22,
     label: 'fechados no período',
-    color: 'text-green-600'
+    color: 'green',
+    total: 100
   },
   {
     title: 'Perdido',
     percentage: 8,
     label: 'no período',
-    color: 'text-red-600'
+    color: 'red',
+    total: 100
   }
 ]
 
@@ -107,6 +112,13 @@ const anualData = [
   { type: 'Faturamento', value: 1000, color: '#3b82f6' },
   { type: 'Deals', value: 500, color: '#3b82f6' }
 ]
+
+const chartConfig = {
+  Total: {
+    label: 'Total',
+    color: 'var(--chart-2)'
+  }
+} satisfies ChartConfig
 
 function IndexPage() {
   const [actualData, setActualData] = useState(data)
@@ -175,17 +187,19 @@ function IndexPage() {
             </div>
           </section>
           <section className="flex gap-3 p-5">
-            <div className="h-full w-[80%] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+            <ChartContainer
+              className="h-[25rem] w-[80%] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+              config={chartConfig}
+            >
               <BarChart
                 data={actualData}
                 style={{
                   width: '100%',
                   height: '100%',
-                  maxHeight: '300px',
                   aspectRatio: 1.618
                 }}
-                responsive
               >
+                <CartesianGrid vertical={false} />
                 <XAxis dataKey={'type'} />
                 <YAxis dataKey={'value'} />
                 <Bar
@@ -195,27 +209,27 @@ function IndexPage() {
                   barSize={50}
                 />
               </BarChart>
-            </div>
+            </ChartContainer>
 
             <div className="flex flex-col gap-5">
               <p className="text-md text-center">Filtre por periodo:</p>
               <button
                 onClick={() => setActualData(data)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === data ? `border-blue-400 border-2` : `border border-neutral-200`}`}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === data ? `border-2 border-blue-400` : `border border-neutral-200`}`}
               >
                 <ChartArea className="text-blue-800" />
                 Mensal
               </button>
               <button
                 onClick={() => setActualData(anualData)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl  bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === anualData ? `border-blue-400 border-2` : `border border-neutral-200`}`}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === anualData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
               >
                 <Calendar className="text-blue-800" />
                 Anual
               </button>
               <button
                 onClick={() => setActualData(diaryData)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl  bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === diaryData ? `border-blue-400 border-2` : `border border-neutral-200`}`}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === diaryData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
               >
                 <MonitorCheck className="text-blue-800" /> Diária
               </button>
@@ -232,27 +246,17 @@ function IndexPage() {
               </p>
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {DEALS_PERCENTAGES.map(({ title, percentage, label, color }) => (
-                <div
-                  key={title}
-                  className="flex flex-col rounded-xl border border-slate-200 bg-white p-4 shadow-sm duration-100 ease-in-out hover:scale-101"
-                >
-                  <div className="flex items-center justify-between p-1">
-                    <h3 className="text-sm font-semibold text-slate-600 opacity-90">
-                      {title}
-                    </h3>
-                    <p className={`text-md font-semibold ${color}`}>100</p>
-                  </div>
-                  <div className="relative h-[140px] w-full">
-                    <SemiCircleProgress
-                      percentage={percentage}
-                      label={label}
-                      size={200}
-                      color={color}
-                    />
-                  </div>
-                </div>
-              ))}
+              {DEALS_PERCENTAGES.map(
+                ({ title, percentage, label, color, total }) => (
+                  <ChartRadialStacked
+                    title={title}
+                    color={color}
+                    percentage={percentage}
+                    total={total}
+                    label={label}
+                  />
+                )
+              )}
             </div>
           </section>
         </div>
