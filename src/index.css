@@ -54,7 +54,67 @@
   scrollbar-width: none;
 }
 
-@theme inline {
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #93c5fd transparent;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: #93c5fd;
+  border-radius: 3px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+.chat-list-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #93c5fd transparent;
+}
+
+.chat-list-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-list-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-list-scroll::-webkit-scrollbar-thumb {
+  background: #93c5fd;
+  border-radius: 2px;
+}
+
+.chat-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+@keyframes message-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-message-in {
+  animation: message-in 0.25s ease-out forwards;
+}
+
+/* @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -162,4 +222,13 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
-}
+} */
+
+/* @layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
