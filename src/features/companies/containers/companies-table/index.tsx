@@ -1,12 +1,3 @@
-import { useState } from 'react'
-import {
-  Search,
-  MoreVertical,
-  Building2,
-  ChevronDown,
-  Filter,
-  Plus
-} from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -15,9 +6,20 @@ import {
   TableHeader,
   TableRow
 } from 'crm-project-ui'
-import { COMPANIES_MOCK } from './mock'
+import {
+  Building2,
+  ChevronDown,
+  Filter,
+  MoreVertical,
+  Search
+} from 'lucide-react'
+import { useState } from 'react'
+
+import { CreateItemFrame } from '../../../../components/shared/createItemFrame'
+import { FeatureContainer } from '../../../../components/shared/FeatureContainer'
 import { formatDate } from '../../../../utils/helpers/format-date'
 import { StatusBadge } from '../../../contacts/components/status-badge'
+import { COMPANIES_MOCK } from './mock'
 
 export const CompaniesTableContainer = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -29,37 +31,23 @@ export const CompaniesTableContainer = () => {
   )
 
   return (
-    <div className="flex w-full flex-col gap-4 p-6 lg:gap-6">
-      <div className="mb-4 flex items-center justify-center rounded-md border-4 border-dashed border-[#dbded4] px-6 py-8">
-        <div className="flex w-full items-center justify-center gap-8 lg:gap-10">
-          <figure className="max-w-[160px]">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/4406/4406356.png"
-              alt="Companies"
-              className="opacity-80"
-              fetchPriority="high"
-              loading="eager"
-              width={120}
-            />
-          </figure>
-          <article className="flex max-w-xl flex-col gap-2">
-            <h2 className="text-2xl font-bold">Bem-vindo às Empresas</h2>
-            <ul className="flex flex-col gap-1">
-              <li className="text-gray-600 text-base">
-                As empresas ajudam você a organizar as organizações com as quais você trabalha. Sincronize dados automaticamente ou adicione registros
-                manualmente para manter sua base atualizada.
-              </li>
-            </ul>
-            <div className="mt-2 flex items-center gap-4">
-              <button className="flex items-center justify-center gap-1.5 rounded-md border border-blue-400 px-3 py-1 text-base font-medium text-blue-500 transition-all duration-300 hover:bg-blue-50 disabled:pointer-events-none disabled:opacity-50 bg-white">
-                <Plus className="h-4 w-4" />
-                Criar empresa
-              </button>
-            </div>
-          </article>
-        </div>
-      </div>
-      <div className="flex flex-col gap-4 bg-white border border-gray-300 rounded-md px-4 py-5 lg:gap-6">
+    <FeatureContainer>
+      <CreateItemFrame
+        title="Empresas"
+        description="Adicione e gerencie empresas na sua carteira de clientes e parceiros"
+        buttonText="Adicionar Empresa"
+        onButtonClick={() => {}}
+      >
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/4406/4406356.png"
+          alt="Companies"
+          className="opacity-80"
+          fetchPriority="high"
+          loading="eager"
+          width={120}
+        />
+      </CreateItemFrame>
+      <div className="flex flex-col gap-4 rounded-md border border-gray-300 bg-white px-4 py-5 lg:gap-6">
         <div className="flex items-center justify-between bg-white">
           <article className="flex flex-col">
             <h1 className="text-2xl font-semibold tracking-tight">Empresas</h1>
@@ -210,6 +198,6 @@ export const CompaniesTableContainer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </FeatureContainer>
   )
 }

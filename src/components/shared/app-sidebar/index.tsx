@@ -75,7 +75,7 @@ const data = {
         },
         {
           title: 'Anotações',
-          url: '/crm/anotacoes'
+          url: '/crm/anotations'
         }
       ]
     },
