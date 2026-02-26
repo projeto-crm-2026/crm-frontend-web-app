@@ -4,7 +4,6 @@ import parser from '@typescript-eslint/parser'
 import prettier from 'eslint-plugin-prettier'
 import importHelpers from 'eslint-plugin-import-helpers'
 import unusedImports from 'eslint-plugin-unused-imports'
-import perfectionist from 'eslint-plugin-perfectionist'
 import svgJsx from 'eslint-plugin-svg-jsx'
 
 export default [
@@ -24,7 +23,6 @@ export default [
        'prettier': prettier,
       'import-helpers': importHelpers,
       'unused-imports': unusedImports,
-      perfectionist,
       'svg-jsx': svgJsx
     },
     rules: {
@@ -33,20 +31,11 @@ export default [
       'no-use-before-define': 'off',
       'space-before-function-paren': 'off',
       camelcase: 'off',
-      'prettier/prettier': 'error',
+      'prettier/prettier': 'warn',
       'unused-imports/no-unused-imports': 'error',
       'svg-jsx/camel-case-dash': 'error',
       'svg-jsx/camel-case-colon': 'error',
       'svg-jsx/no-style-string': 'error',
-      'perfectionist/sort-interfaces': 'error',
-      'perfectionist/sort-jsx-props': [
-        'warn',
-        {
-          type: 'natural',
-          order: 'asc',
-          groups: ['multiline', 'unknown', 'shorthand']
-        }
-      ],
       '@typescript-eslint/consistent-type-imports': [
         'warn',
         {
