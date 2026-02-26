@@ -13,6 +13,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { useState } from 'react'
 import { ChartRadialStacked } from '../../components/ui/radial-chart'
 import { ChartContainer, type ChartConfig } from '../../components/ui/chart'
+import { Card, CardDescription, CardHeader } from 'crm-project-ui'
+import { ChartPieInteractive } from '../../components/ui/char-interactive-pier'
 
 export const Route = createFileRoute('/_app/')({
   component: IndexPage
@@ -31,6 +33,7 @@ const MOCK_STATS = [
   },
   {
     label: 'Deals ativos',
+    description: 'Clique para ver detalhes',
     value: '18',
     icon: Handshake,
     color: 'bg-white text-orange-700 border-slate-200',
@@ -92,25 +95,34 @@ const DEALS_PERCENTAGES = [
   }
 ]
 
-const data = [
-  { type: 'Contratos', value: 100, color: '#3b82f6' },
-  { type: 'Leds', value: 100, color: '#3b82f6' },
-  { type: 'Faturamento', value: 100, color: '#3b82f6' },
-  { type: 'Deals', value: 50, color: '#3b82f6' }
+const monthlyData = [
+  { name: 'Contratos', value: 120, color: '#3b82f6' },
+  { name: 'Leads', value: 200, color: '#ef4444' },
+  { name: 'Faturamento', value: 85, color: '#22c55e' },
+  { name: 'Deals', value: 75, color: '#f97316' }
 ]
 
-const diaryData = [
-  { type: 'Contratos', value: 10, color: '#3b82f6' },
-  { type: 'Leds', value: 10, color: '#3b82f6' },
-  { type: 'Faturamento', value: 10, color: '#3b82f6' },
-  { type: 'Deals', value: 5, color: '#3b82f6' }
+const weeklyData = [
+  { name: 'Seg', value: 20, color: '#3b82f6' },
+  { name: 'Ter', value: 35, color: '#ef4444' },
+  { name: 'Qua', value: 15, color: '#22c55e' },
+  { name: 'Qui', value: 45, color: '#f97316' },
+  { name: 'Sex', value: 50, color: '#8b5cf6' }
 ]
 
-const anualData = [
-  { type: 'Contratos', value: 1000, color: '#3b82f6' },
-  { type: 'Leds', value: 2000, color: '#3b82f6' },
-  { type: 'Faturamento', value: 1000, color: '#3b82f6' },
-  { type: 'Deals', value: 500, color: '#3b82f6' }
+const yearlyData = [
+  { name: 'Jan', value: 1200, color: '#3b82f6' },
+  { name: 'Fev', value: 1500, color: '#ef4444' },
+  { name: 'Mar', value: 1800, color: '#22c55e' },
+  { name: 'Abr', value: 1300, color: '#f97316' },
+  { name: 'Mai', value: 2000, color: '#8b5cf6' },
+  { name: 'Jun', value: 2400, color: '#3b82f6' },
+  { name: 'Jul', value: 2200, color: '#ef4444' },
+  { name: 'Ago', value: 2600, color: '#22c55e' },
+  { name: 'Set', value: 2900, color: '#f97316' },
+  { name: 'Out', value: 3200, color: '#8b5cf6' },
+  { name: 'Nov', value: 3000, color: '#3b82f6' },
+  { name: 'Dez', value: 3500, color: '#ef4444' }
 ]
 
 const chartConfig = {
@@ -121,7 +133,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 function IndexPage() {
-  const [actualData, setActualData] = useState(data)
+  const [actualData, setActualData] = useState(monthlyData)
 
   return (
     <div className="min-h-screen w-full overflow-x-auto">
@@ -187,77 +199,59 @@ function IndexPage() {
             </div>
           </section>
           <section className="flex gap-3 p-5">
-            <ChartContainer
-              className="h-[25rem] w-[80%] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
-              config={chartConfig}
-            >
-              <BarChart
-                data={actualData}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  aspectRatio: 1.618
-                }}
-              >
-                <CartesianGrid vertical={false} />
-                <XAxis dataKey={'type'} />
-                <YAxis dataKey={'value'} />
-                <Bar
-                  dataKey="value"
-                  radius={[4, 4, 0, 0]}
-                  fill="#1d4ed8"
-                  barSize={50}
-                />
-              </BarChart>
-            </ChartContainer>
+            <Card className="h-[28rem] w-[80%] flex-col rounded-xl border border-slate-200 bg-white shadow-sm">
+              <CardHeader>
+                <CardDescription></CardDescription>
+              </CardHeader>
+              <ChartContainer config={chartConfig} className="h-[90%] w-full">
+                <BarChart
+                  data={actualData}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    aspectRatio: 1.618
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+                  <XAxis dataKey={Object.keys(actualData[0])[0]} />
+                  <YAxis dataKey={Object.keys(actualData[0])[1]} />
+                  <Bar
+                    dataKey={Object.keys(actualData[0])[1]}
+                    radius={[4, 4, 0, 0]}
+                    fill="#1d4ed8"
+                    barSize={50}
+                  />
+                </BarChart>
+              </ChartContainer>
+            </Card>
 
             <div className="flex flex-col gap-5">
-              <p className="text-md text-center">Filtre por periodo:</p>
+              <p className="text-md text-center">Selecione um filtro</p>
               <button
-                onClick={() => setActualData(data)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === data ? `border-2 border-blue-400` : `border border-neutral-200`}`}
+                onClick={() => setActualData(monthlyData)}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === monthlyData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
               >
                 <ChartArea className="text-blue-800" />
-                Mensal
+                Resumo Diário
               </button>
               <button
-                onClick={() => setActualData(anualData)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === anualData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
+                onClick={() => setActualData(weeklyData)}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === weeklyData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
               >
                 <Calendar className="text-blue-800" />
-                Anual
+                Balanço semanal
               </button>
               <button
-                onClick={() => setActualData(diaryData)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === diaryData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
+                onClick={() => setActualData(yearlyData)}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === yearlyData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
               >
-                <MonitorCheck className="text-blue-800" /> Diária
+                <MonitorCheck className="text-blue-800" /> Balanço anual
               </button>
             </div>
           </section>
 
-          <section className="flex flex-col rounded-xl p-2">
-            <div className="mb-3 flex flex-col gap-1 px-2">
-              <h2 className="text-xl font-semibold text-slate-800">
-                Deals por estágio
-              </h2>
-              <p className="text-sm text-slate-600">
-                Acompanhe a situação dos seus contratos
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {DEALS_PERCENTAGES.map(
-                ({ title, percentage, label, color, total }) => (
-                  <ChartRadialStacked
-                    title={title}
-                    color={color}
-                    percentage={percentage}
-                    total={total}
-                    label={label}
-                  />
-                )
-              )}
-            </div>
+          <section id="deals" className="flex flex-col rounded-xl p-2 lg:w-1/2 w-[90%]">
+            <ChartPieInteractive />
           </section>
         </div>
       </DashboardLayout>
