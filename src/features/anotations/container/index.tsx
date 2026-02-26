@@ -6,30 +6,28 @@ import {
   TableHeader,
   TableRow
 } from 'crm-project-ui'
-import { ChevronDown, Filter, MoreVertical, Search, User } from 'lucide-react'
-import { useState } from 'react'
+import {
+  Building2,
+  ChevronDown,
+  Filter,
+  MoreVertical,
+  Search
+} from 'lucide-react'
 
-import { CreateItemFrame } from '../../../../components/shared/createItemFrame'
-import { FeatureContainer } from '../../../../components/shared/FeatureContainer'
-import { formatDate } from '../../../../utils/helpers/format-date'
-import { StatusBadge } from '../../components/status-badge'
-import { CONTACTS_MOCK } from './mock'
+import { CreateItemFrame } from '../../../components/shared/createItemFrame'
+import { FeatureContainer } from '../../../components/shared/FeatureContainer'
+import { formatDate } from '../../../utils/helpers/format-date'
+import { COMPANIES_MOCK } from '../../companies/containers/companies-table/mock'
+import { StatusBadge } from '../components/status-badge'
+import { ANOTATIONS_MOCK } from '../mock'
 
-export const ContactsTableContainer = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const filteredContacts = CONTACTS_MOCK.filter(
-    contact =>
-      contact.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      contact.email.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-
+export const AnotationsContainer = () => {
   return (
     <FeatureContainer>
       <CreateItemFrame
-        title="Contatos"
-        description="Adicione e gerencie contatos na sua carteira de clientes e parceiros"
-        buttonText="Adicionar Contato"
+        title="Anotações"
+        description="Adicione e gerencie suas anotações para acompanhar informações importantes sobre seus contatos, negócios e atividades"
+        buttonText="Adicionar Anotação"
         onButtonClick={() => {}}
       >
         <img
@@ -40,19 +38,13 @@ export const ContactsTableContainer = () => {
         />
       </CreateItemFrame>
       <div className="flex flex-col gap-4 rounded-md border border-gray-300 bg-white px-4 py-5 lg:gap-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between bg-white">
           <article className="flex flex-col">
-            <h1 className="text-2xl font-semibold tracking-tight">Contatos</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Anotações</h1>
             <p className="text-muted-foreground mt-1 text-sm">
-              Gerencie seus relacionamentos de contato e acompanhe o engajamento
+              Gerencie suas anotações
             </p>
           </article>
-          <button
-            type="button"
-            className="text-primary-foreground inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-1.5 text-sm font-medium transition-all duration-300 hover:brightness-110"
-          >
-            Adicionar Contato
-          </button>
         </div>
 
         <div className="flex items-center gap-4">
@@ -60,10 +52,8 @@ export const ContactsTableContainer = () => {
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <input
               className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring w-full rounded-md border py-2 pr-3 pl-10 text-sm transition-all duration-300 focus-visible:ring-1 focus-visible:outline-none"
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Buscar contato"
+              placeholder="Buscar anotação"
               type="text"
-              value={searchQuery}
             />
           </div>
           <button className="border-input bg-background inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-500">
@@ -77,63 +67,53 @@ export const ContactsTableContainer = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[300px]">Nome</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Responsável</TableHead>
+                <TableHead className="w-[300px]">Associado</TableHead>
+                <TableHead>Categoria</TableHead>
                 <TableHead>Data de criação</TableHead>
-                <TableHead>Última atividade</TableHead>
-                <TableHead>Empresa</TableHead>
-                <TableHead>Telefone</TableHead>
+                <TableHead>Visualização</TableHead>
+                <TableHead>Ações</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredContacts.length > 0 ? (
-                filteredContacts.map(contact => (
-                  <TableRow key={contact.id}>
+              {ANOTATIONS_MOCK.length > 0 ? (
+                ANOTATIONS_MOCK.map(anotate => (
+                  <TableRow key={anotate.id}>
                     <TableCell>
-                      <div className="flex items-center gap-3">
-                        <figure className="flex h-10 w-10 items-center justify-center rounded-md bg-neutral-200">
-                          <User className="text-muted-foreground h-5 w-5" />
+                      <div className="flex items-center gap-4 pl-1">
+                        <figure className="flex h-9 w-9 items-center justify-center rounded-md bg-gray-100 p-1.5">
+                          {anotate.assigned_to ? (
+                            <img
+                              src={anotate.assigned_to_avatar}
+                              alt={anotate.assigned_to}
+                              className="h-auto w-auto rounded-md object-contain"
+                            />
+                          ) : (
+                            <Building2 className="text-muted-foreground h-6.5 w-6.5" />
+                          )}
                         </figure>
                         <div>
-                          <div className="font-medium">{contact.full_name}</div>
-                          <div className="text-muted-foreground text-sm">
-                            {contact.email}
+                          <div className="font-medium">
+                            {anotate.assigned_to}
                           </div>
                         </div>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <StatusBadge status={contact.status} />
+                      <StatusBadge status={anotate.assigned_status} />
                     </TableCell>
                     <TableCell>
                       <span className="text-muted-foreground text-sm">
-                        {contact.created_by_id
-                          ? 'Nome do cara futuramente**'
-                          : 'Sem responsável'}
+                        {formatDate({ dateString: anotate.created_at })}
                       </span>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">
-                        {formatDate({ dateString: contact.created_at })}
-                      </span>
+                      <button className="text-sm text-blue-600">
+                        Consultar
+                      </button>
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm">
-                        {formatDate({ dateString: contact.updated_at })}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm">{contact.company_name}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-muted-foreground text-sm">
-                        {contact.phone}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <button className="hover:bg-accent hover:text-accent-foreground inline-flex h-8 w-8 items-center justify-center rounded-md">
+                      <button className="hover:bg-accent hover:text-accent-foreground inline-flex h-8 w-8 items-center justify-center rounded-md transition-all duration-300">
                         <MoreVertical className="h-4 w-4" />
                         <span className="sr-only">Actions</span>
                       </button>
@@ -144,7 +124,7 @@ export const ContactsTableContainer = () => {
                 <TableRow>
                   <TableCell className="h-24 text-center" colSpan={8}>
                     <div className="text-muted-foreground">
-                      No contacts found.
+                      Nenhuma empresa encontrada.
                     </div>
                   </TableCell>
                 </TableRow>
@@ -154,8 +134,8 @@ export const ContactsTableContainer = () => {
         </div>
         <div className="text-muted-foreground flex items-center justify-between text-sm">
           <div>
-            Exibindo {filteredContacts.length} de {CONTACTS_MOCK.length}{' '}
-            contato(s)
+            Exibindo {COMPANIES_MOCK.length} de {COMPANIES_MOCK.length}{' '}
+            empresa(s)
           </div>
           <div className="flex items-center gap-2">
             <button className="border-input inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-500 disabled:pointer-events-none disabled:opacity-50">
