@@ -65,14 +65,20 @@ const MOCK_STATS = [
   }
 ]
 
-const monthlyData = [
+type ChartDatum = {
+  name: string
+  value: number
+  color: string
+}
+
+const monthlyData: ChartDatum[] = [
   { name: 'Contratos', value: 120, color: '#3b82f6' },
   { name: 'Leads', value: 200, color: '#ef4444' },
   { name: 'Faturamento', value: 85, color: '#22c55e' },
   { name: 'Deals', value: 75, color: '#f97316' }
 ]
 
-const weeklyData = [
+const weeklyData: ChartDatum[] = [
   { name: 'Seg', value: 20, color: '#3b82f6' },
   { name: 'Ter', value: 35, color: '#ef4444' },
   { name: 'Qua', value: 15, color: '#22c55e' },
@@ -80,7 +86,7 @@ const weeklyData = [
   { name: 'Sex', value: 50, color: '#8b5cf6' }
 ]
 
-const yearlyData = [
+const yearlyData: ChartDatum[] = [
   { name: 'Jan', value: 1200, color: '#3b82f6' },
   { name: 'Fev', value: 1500, color: '#ef4444' },
   { name: 'Mar', value: 1800, color: '#22c55e' },
@@ -103,7 +109,8 @@ const chartConfig = {
 } satisfies ChartConfig
 
 function IndexPage() {
-  const [actualData, setActualData] = useState(monthlyData)
+  const [actualData, setActualData] = useState<ChartDatum[]>(monthlyData)
+  const hasChartData = actualData.length > 0
 
   return (
     <div className="min-h-screen w-full overflow-x-auto">
@@ -141,7 +148,7 @@ function IndexPage() {
                     textColor
                   }) => (
                     <div
-                      className={`flex h-34 min-w-[200px] flex-col gap-4 rounded-xl border p-4 shadow-md transition-all duration-150 ease-in hover:scale-102 ${color} relative`}
+                      className={`flex h-34 min-w-50 flex-col gap-4 rounded-xl border p-4 shadow-md transition-all duration-150 ease-in hover:scale-102 ${color} relative`}
                       key={label}
                     >
                       <p className="text-sm font-semibold text-slate-600 opacity-90">
@@ -169,29 +176,35 @@ function IndexPage() {
             </div>
           </section>
           <section className="flex gap-3 p-5">
-            <Card className="h-[28rem] w-[80%] flex-col rounded-xl border border-slate-200 bg-white shadow-sm">
+            <Card className="h-112 w-[80%] flex-col rounded-xl border border-slate-200 bg-white shadow-sm">
               <CardHeader>
                 <CardDescription></CardDescription>
               </CardHeader>
               <ChartContainer className="h-[90%] w-full" config={chartConfig}>
-                <BarChart
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    aspectRatio: 1.618
-                  }}
-                  data={actualData}
-                >
-                  <CartesianGrid vertical={false} />
-                  <XAxis dataKey={Object.keys(actualData[0])[0]} />
-                  <YAxis dataKey={Object.keys(actualData[0])[1]} />
-                  <Bar
-                    barSize={50}
-                    dataKey={Object.keys(actualData[0])[1]}
-                    fill="#1d4ed8"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
+                {hasChartData ? (
+                  <BarChart
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      aspectRatio: 1.618
+                    }}
+                    data={actualData}
+                  >
+                    <CartesianGrid vertical={false} />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Bar
+                      barSize={50}
+                      dataKey="value"
+                      fill="#1d4ed8"
+                      radius={[4, 4, 0, 0]}
+                    />
+                  </BarChart>
+                ) : (
+                  <div className="flex h-full items-center justify-center text-sm text-slate-500">
+                    Sem dados para exibir.
+                  </div>
+                )}
               </ChartContainer>
             </Card>
 
