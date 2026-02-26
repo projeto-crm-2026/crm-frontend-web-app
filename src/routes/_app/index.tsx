@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Card, CardDescription, CardHeader } from 'crm-project-ui'
 import {
   Calendar,
   ChartArea,
@@ -6,12 +6,16 @@ import {
   MonitorCheck,
   Users
 } from 'lucide-react'
-import DashboardLayout from '../../features/dashboard/layout'
-import { MiniTrendChart } from '../../components/ui/mini-trend-chart'
-import { SemiCircleProgress } from '../../components/ui/semi-circle-progress'
-import { TypeAnimation } from 'react-type-animation'
-import { BarChart, Bar, XAxis, YAxis } from 'recharts'
 import { useState } from 'react'
+import { TypeAnimation } from 'react-type-animation'
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
+
+import { createFileRoute } from '@tanstack/react-router'
+
+import { ChartPieInteractive } from '../../components/ui/char-interactive-pier'
+import { type ChartConfig, ChartContainer } from '../../components/ui/chart'
+import { MiniTrendChart } from '../../components/ui/mini-trend-chart'
+import DashboardLayout from '../../features/dashboard/layout'
 
 export const Route = createFileRoute('/_app/')({
   component: IndexPage
@@ -30,6 +34,7 @@ const MOCK_STATS = [
   },
   {
     label: 'Deals ativos',
+    description: 'Clique para ver detalhes',
     value: '18',
     icon: Handshake,
     color: 'bg-white text-orange-700 border-slate-200',
@@ -60,56 +65,52 @@ const MOCK_STATS = [
   }
 ]
 
-const DEALS_PERCENTAGES = [
-  {
-    title: 'Em proposta',
-    percentage: 28,
-    label: 'do total de deals',
-    color: 'text-blue-600'
-  },
-  {
-    title: 'Em negociação',
-    percentage: 42,
-    label: 'do total de deals',
-    color: 'text-yellow-400'
-  },
-  {
-    title: 'Ganho',
-    percentage: 22,
-    label: 'fechados no período',
-    color: 'text-green-600'
-  },
-  {
-    title: 'Perdido',
-    percentage: 8,
-    label: 'no período',
-    color: 'text-red-600'
+type ChartDatum = {
+  name: string
+  value: number
+  color: string
+}
+
+const monthlyData: ChartDatum[] = [
+  { name: 'Contratos', value: 120, color: '#3b82f6' },
+  { name: 'Leads', value: 200, color: '#ef4444' },
+  { name: 'Faturamento', value: 85, color: '#22c55e' },
+  { name: 'Deals', value: 75, color: '#f97316' }
+]
+
+const weeklyData: ChartDatum[] = [
+  { name: 'Seg', value: 20, color: '#3b82f6' },
+  { name: 'Ter', value: 35, color: '#ef4444' },
+  { name: 'Qua', value: 15, color: '#22c55e' },
+  { name: 'Qui', value: 45, color: '#f97316' },
+  { name: 'Sex', value: 50, color: '#8b5cf6' }
+]
+
+const yearlyData: ChartDatum[] = [
+  { name: 'Jan', value: 1200, color: '#3b82f6' },
+  { name: 'Fev', value: 1500, color: '#ef4444' },
+  { name: 'Mar', value: 1800, color: '#22c55e' },
+  { name: 'Abr', value: 1300, color: '#f97316' },
+  { name: 'Mai', value: 2000, color: '#8b5cf6' },
+  { name: 'Jun', value: 2400, color: '#3b82f6' },
+  { name: 'Jul', value: 2200, color: '#ef4444' },
+  { name: 'Ago', value: 2600, color: '#22c55e' },
+  { name: 'Set', value: 2900, color: '#f97316' },
+  { name: 'Out', value: 3200, color: '#8b5cf6' },
+  { name: 'Nov', value: 3000, color: '#3b82f6' },
+  { name: 'Dez', value: 3500, color: '#ef4444' }
+]
+
+const chartConfig = {
+  Total: {
+    label: 'Total',
+    color: 'var(--chart-2)'
   }
-]
-
-const data = [
-  { type: 'Contratos', value: 100, color: '#3b82f6' },
-  { type: 'Leds', value: 100, color: '#3b82f6' },
-  { type: 'Faturamento', value: 100, color: '#3b82f6' },
-  { type: 'Deals', value: 50, color: '#3b82f6' }
-]
-
-const diaryData = [
-  { type: 'Contratos', value: 10, color: '#3b82f6' },
-  { type: 'Leds', value: 10, color: '#3b82f6' },
-  { type: 'Faturamento', value: 10, color: '#3b82f6' },
-  { type: 'Deals', value: 5, color: '#3b82f6' }
-]
-
-const anualData = [
-  { type: 'Contratos', value: 1000, color: '#3b82f6' },
-  { type: 'Leds', value: 2000, color: '#3b82f6' },
-  { type: 'Faturamento', value: 1000, color: '#3b82f6' },
-  { type: 'Deals', value: 500, color: '#3b82f6' }
-]
+} satisfies ChartConfig
 
 function IndexPage() {
-  const [actualData, setActualData] = useState(data)
+  const [actualData, setActualData] = useState<ChartDatum[]>(monthlyData)
+  const hasChartData = actualData.length > 0
 
   return (
     <div className="min-h-screen w-full overflow-x-auto">
@@ -126,9 +127,9 @@ function IndexPage() {
                   'Analise suas informações rapidamente.',
                   2000
                 ]}
-                speed={50}
-                repeat={Infinity}
                 className="text-xl font-semibold text-slate-700"
+                repeat={Infinity}
+                speed={50}
               />
             </div>
           </div>
@@ -147,8 +148,8 @@ function IndexPage() {
                     textColor
                   }) => (
                     <div
+                      className={`flex h-34 min-w-50 flex-col gap-4 rounded-xl border p-4 shadow-md transition-all duration-150 ease-in hover:scale-102 ${color} relative`}
                       key={label}
-                      className={`flex h-34 min-w-[200px] flex-col gap-4 rounded-xl border p-4 shadow-md transition-all duration-150 ease-in hover:scale-102 ${color} relative`}
                     >
                       <p className="text-sm font-semibold text-slate-600 opacity-90">
                         {label}
@@ -161,11 +162,11 @@ function IndexPage() {
                       </div>
                       <div className="absolute right-2 bottom-2">
                         <MiniTrendChart
-                          percentage={trend}
-                          positive={trend >= 0}
                           background={background}
                           border={border}
                           color={textColor}
+                          percentage={trend}
+                          positive={trend >= 0}
                         />
                       </div>
                     </div>
@@ -175,85 +176,68 @@ function IndexPage() {
             </div>
           </section>
           <section className="flex gap-3 p-5">
-            <div className="h-full w-[80%] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-              <BarChart
-                data={actualData}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  maxHeight: '300px',
-                  aspectRatio: 1.618
-                }}
-                responsive
-              >
-                <XAxis dataKey={'type'} />
-                <YAxis dataKey={'value'} />
-                <Bar
-                  dataKey="value"
-                  radius={[4, 4, 0, 0]}
-                  fill="#1d4ed8"
-                  barSize={50}
-                />
-              </BarChart>
-            </div>
+            <Card className="h-112 w-[80%] flex-col rounded-xl border border-slate-200 bg-white shadow-sm">
+              <CardHeader>
+                <CardDescription></CardDescription>
+              </CardHeader>
+              <ChartContainer className="h-[90%] w-full" config={chartConfig}>
+                {hasChartData ? (
+                  <BarChart
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      aspectRatio: 1.618
+                    }}
+                    data={actualData}
+                  >
+                    <CartesianGrid vertical={false} />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Bar
+                      barSize={50}
+                      dataKey="value"
+                      fill="#1d4ed8"
+                      radius={[4, 4, 0, 0]}
+                    />
+                  </BarChart>
+                ) : (
+                  <div className="flex h-full items-center justify-center text-sm text-slate-500">
+                    Sem dados para exibir.
+                  </div>
+                )}
+              </ChartContainer>
+            </Card>
 
             <div className="flex flex-col gap-5">
-              <p className="text-md text-center">Filtre por periodo:</p>
+              <p className="text-md text-center">Selecione um filtro</p>
               <button
-                onClick={() => setActualData(data)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === data ? `border-blue-400 border-2` : `border border-neutral-200`}`}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === monthlyData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
+                onClick={() => setActualData(monthlyData)}
               >
                 <ChartArea className="text-blue-800" />
-                Mensal
+                Resumo Diário
               </button>
               <button
-                onClick={() => setActualData(anualData)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl  bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === anualData ? `border-blue-400 border-2` : `border border-neutral-200`}`}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === weeklyData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
+                onClick={() => setActualData(weeklyData)}
               >
                 <Calendar className="text-blue-800" />
-                Anual
+                Balanço semanal
               </button>
               <button
-                onClick={() => setActualData(diaryData)}
-                className={`text-md flex w-52 items-center gap-3 rounded-xl  bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === diaryData ? `border-blue-400 border-2` : `border border-neutral-200`}`}
+                className={`text-md flex w-52 items-center gap-3 rounded-xl bg-white p-5 font-medium text-stone-800 transition-all duration-100 hover:scale-101 hover:cursor-pointer ${actualData === yearlyData ? `border-2 border-blue-400` : `border border-neutral-200`}`}
+                onClick={() => setActualData(yearlyData)}
               >
-                <MonitorCheck className="text-blue-800" /> Diária
+                <MonitorCheck className="text-blue-800" /> Balanço anual
               </button>
             </div>
           </section>
 
-          <section className="flex flex-col rounded-xl p-2">
-            <div className="mb-3 flex flex-col gap-1 px-2">
-              <h2 className="text-xl font-semibold text-slate-800">
-                Deals por estágio
-              </h2>
-              <p className="text-sm text-slate-600">
-                Acompanhe a situação dos seus contratos
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {DEALS_PERCENTAGES.map(({ title, percentage, label, color }) => (
-                <div
-                  key={title}
-                  className="flex flex-col rounded-xl border border-slate-200 bg-white p-4 shadow-sm duration-100 ease-in-out hover:scale-101"
-                >
-                  <div className="flex items-center justify-between p-1">
-                    <h3 className="text-sm font-semibold text-slate-600 opacity-90">
-                      {title}
-                    </h3>
-                    <p className={`text-md font-semibold ${color}`}>100</p>
-                  </div>
-                  <div className="relative h-[140px] w-full">
-                    <SemiCircleProgress
-                      percentage={percentage}
-                      label={label}
-                      size={200}
-                      color={color}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+          <section
+            className="flex w-[90%] flex-col rounded-xl p-2 lg:w-1/2"
+            id="deals"
+          >
+            <ChartPieInteractive />
           </section>
         </div>
       </DashboardLayout>

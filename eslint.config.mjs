@@ -21,6 +21,7 @@ export default [
     },
     plugins: {
       '@typescript-eslint': typescript,
+       'prettier': prettier,
       'import-helpers': importHelpers,
       'unused-imports': unusedImports,
       perfectionist,
@@ -39,7 +40,7 @@ export default [
       'svg-jsx/no-style-string': 'error',
       'perfectionist/sort-interfaces': 'error',
       'perfectionist/sort-jsx-props': [
-        'error',
+        'warn',
         {
           type: 'natural',
           order: 'asc',
@@ -47,7 +48,7 @@ export default [
         }
       ],
       '@typescript-eslint/consistent-type-imports': [
-        'error',
+        'warn',
         {
           prefer: 'type-imports',
           disallowTypeAnnotations: false
@@ -77,7 +78,7 @@ export default [
         }
       ],
       'sort-imports': [
-        'error',
+        'warn',
         {
           ignoreCase: false,
           ignoreDeclarationSort: true,
