@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { useState } from 'react'
 import { Label, Pie, PieChart, Sector } from 'recharts'
-import { type PieSectorDataItem } from 'recharts/types/polar/Pie'
 
 import {
   Card,
@@ -121,10 +120,7 @@ export function ChartPieInteractive() {
               cursor={false}
             />
             <Pie
-              activeShape={({
-                outerRadius = 0,
-                ...props
-              }: PieSectorDataItem) => (
+              activeShape={({ outerRadius = 0, ...props }: any) => (
                 <g>
                   <Sector {...props} outerRadius={outerRadius + 10} />
                   <Sector
