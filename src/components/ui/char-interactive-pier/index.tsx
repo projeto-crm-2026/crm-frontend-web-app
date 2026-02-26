@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useState } from 'react'
 import { Label, Pie, PieChart, Sector } from 'recharts'
 import { type PieSectorDataItem } from 'recharts/types/polar/Pie'
 
@@ -12,11 +13,11 @@ import {
   CardTitle
 } from '../card'
 import {
+  type ChartConfig,
   ChartContainer,
   ChartStyle,
   ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig
+  ChartTooltipContent
 } from '../chart'
 import {
   Select,
@@ -25,7 +26,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '../select'
-import { useState } from 'react'
 
 export const description = 'An interactive pie chart'
 
@@ -62,22 +62,21 @@ export function ChartPieInteractive() {
     () => desktopData.findIndex(item => item.type === activeitem),
     [activeitem]
   )
-  const [activeIndex, setActiveIndex] = useState(activeIndexMemo)
 
   const items = React.useMemo(() => desktopData.map(item => item.type), [])
 
   return (
-    <Card data-chart={id} className="flex flex-col">
-      <ChartStyle id={id} config={chartConfig} />
+    <Card className="flex flex-col" data-chart={id}>
+      <ChartStyle config={chartConfig} id={id} />
       <CardHeader className="flex-row items-start space-y-0 pb-0">
         <div className="grid gap-1">
           <CardTitle>Resumo de Deals</CardTitle>
           <CardDescription>January - June 2024</CardDescription>
         </div>
-        <Select value={activeitem} onValueChange={setActiveItem}>
+        <Select onValueChange={setActiveItem} value={activeitem}>
           <SelectTrigger
-            className="ml-auto h-9 w-[160px] rounded-lg pl-2.5"
             aria-label="Select a value"
+            className="ml-auto h-9 w-[160px] rounded-lg pl-2.5"
           >
             <SelectValue placeholder="Status" />
           </SelectTrigger>
@@ -91,16 +90,16 @@ export function ChartPieInteractive() {
 
               return (
                 <SelectItem
+                  className="er gap-2 rounded-lg [&_span]:flex"
                   key={key}
                   value={key}
-                  className="rounded-lg [&_span]:flex"
                 >
-                  <div className="flex items-center gap-2 text-md">
+                  <div className="text-md text-md items-c flex justify-center gap-2">
                     <span
-                      className="flex h-3 w-3 shrink-0 rounded-xs"
                       style={{
                         backgroundColor: `var(--color-${key})`
                       }}
+                      className="ro my-auto flex h-3 w-3 shrink-0"
                     />
                     {config?.label}
                   </div>
@@ -112,27 +111,16 @@ export function ChartPieInteractive() {
       </CardHeader>
       <CardContent className="flex flex-1 justify-center pb-0">
         <ChartContainer
-          id={id}
-          config={chartConfig}
           className="mx-auto aspect-square w-full max-w-[300px]"
+          config={chartConfig}
+          id={id}
         >
           <PieChart>
             <ChartTooltip
-              cursor={false}
               content={<ChartTooltipContent hideLabel />}
+              cursor={false}
             />
             <Pie
-              data={desktopData}
-              dataKey="value"
-              nameKey="type"
-              className='hover:cursor-pointer'
-              innerRadius={60}
-              onClick={(data, index) => {
-                setActiveIndex(index)
-                setActiveItem(data.type)
-              }}
-              strokeWidth={5}
-              activeIndex={activeIndex}
               activeShape={({
                 outerRadius = 0,
                 ...props
@@ -141,33 +129,43 @@ export function ChartPieInteractive() {
                   <Sector {...props} outerRadius={outerRadius + 10} />
                   <Sector
                     {...props}
-                    outerRadius={outerRadius + 25}
                     innerRadius={outerRadius + 12}
+                    outerRadius={outerRadius + 25}
                   />
                 </g>
               )}
+              onClick={data => {
+                setActiveItem(data.type)
+              }}
+              activeIndex={activeIndexMemo}
+              className="hover:cursor-pointer"
+              data={desktopData}
+              dataKey="value"
+              innerRadius={60}
+              nameKey="type"
+              strokeWidth={5}
             >
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                     return (
                       <text
+                        dominantBaseline="middle"
+                        textAnchor="middle"
                         x={viewBox.cx}
                         y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
                       >
                         <tspan
+                          className="fill-foreground text-3xl font-bold"
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
                         >
-                          {desktopData[activeIndex].value.toLocaleString()}
+                          {desktopData[activeIndexMemo].value.toLocaleString()}
                         </tspan>
                         <tspan
+                          className="fill-muted-foreground"
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
                         >
                           Deals
                         </tspan>

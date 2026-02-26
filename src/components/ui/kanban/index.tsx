@@ -1,5 +1,16 @@
 'use client'
 
+import { Card, ScrollArea, ScrollBar } from 'crm-project-ui'
+import {
+  type HTMLAttributes,
+  type ReactNode,
+  createContext,
+  useContext,
+  useState
+} from 'react'
+import { createPortal } from 'react-dom'
+import tunnel from 'tunnel-rat'
+
 import type {
   Announcements,
   DndContextProps,
@@ -8,28 +19,19 @@ import type {
   DragStartEvent
 } from '@dnd-kit/core'
 import {
-  closestCenter,
   DndContext,
   DragOverlay,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
+  closestCenter,
   useDroppable,
   useSensor,
   useSensors
 } from '@dnd-kit/core'
-import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable'
+import { SortableContext, arrayMove, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import {
-  createContext,
-  type HTMLAttributes,
-  type ReactNode,
-  useContext,
-  useState
-} from 'react'
-import { createPortal } from 'react-dom'
-import tunnel from 'tunnel-rat'
-import { Card, ScrollArea, ScrollBar } from 'crm-project-ui'
+
 import { cn } from '../../../lib/utils'
 
 const t = tunnel()
@@ -80,7 +82,7 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   return (
     <div
       className={cn(
-        'flex w-80 xl:min-w-0 min-w-80 xl:w-full flex-col divide-y overflow-hidden rounded-sm border border-gray-300 bg-white text-xs transition-all duration-300',
+        'w-8flex-col diyolow-hidden flex rounded-sm border border-gray-300 bg-white text-xs transition-all duration-300 xl:w-full xl:min-w-0',
         isOver ? 'ring-primary' : 'ring-transparent',
         className
       )}
@@ -183,10 +185,7 @@ export type KanbanHeaderProps = HTMLAttributes<HTMLDivElement>
 
 export const KanbanHeader = ({ className, ...props }: KanbanHeaderProps) => (
   <div
-    className={cn(
-      'm-0 bg-sidebar px-2 py-2.5 text-sm font-semibold',
-      className
-    )}
+    className={cn('idebar m-0 px-2 py-2.5 text-sm font-semibold', className)}
     {...props}
   />
 )

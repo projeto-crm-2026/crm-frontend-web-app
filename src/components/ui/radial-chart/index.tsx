@@ -2,19 +2,13 @@
 
 import { TrendingUp } from 'lucide-react'
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
+
+import { Card, CardContent, CardFooter } from '../card'
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '../card'
-import {
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig
+  ChartTooltipContent
 } from '../chart'
 
 export const description = 'A radial chart with stacked sections'
@@ -31,7 +25,6 @@ export function ChartRadialStacked({
   title,
   color,
   percentage,
-  label,
   total
 }: ChartRadialStackedProps) {
   const chartConfig = {
@@ -45,38 +38,38 @@ export function ChartRadialStacked({
     <Card className="flex flex-col p-2">
       <CardContent className="flex h-full items-center justify-center pb-0">
         <ChartContainer
-          config={chartConfig}
           className="mx-auto flex w-full min-w-50 items-center justify-center pt-2"
+          config={chartConfig}
         >
           <RadialBarChart
+            cx="50%" // adicione isso
+            cy="80%"
             data={[{ Total: total }]}
             endAngle={180}
             innerRadius={80}
             outerRadius={130}
-            cx="50%" // adicione isso
-            cy="80%"
           >
             <ChartTooltip
-              cursor={false}
               content={<ChartTooltipContent hideLabel />}
+              cursor={false}
             />
-            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+            <PolarRadiusAxis axisLine={false} tick={false} tickLine={false}>
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                     return (
-                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
+                      <text textAnchor="middle" x={viewBox.cx} y={viewBox.cy}>
                         <tspan
+                          className="fill-foreground text-2xl font-bold"
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) - 16}
-                          className="fill-foreground text-2xl font-bold"
                         >
                           {percentage.toLocaleString()}%
                         </tspan>
                         <tspan
+                          className="fill-muted-foreground"
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 4}
-                          className="fill-muted-foreground"
                         >
                           {title}
                         </tspan>
@@ -87,11 +80,11 @@ export function ChartRadialStacked({
               />
             </PolarRadiusAxis>
             <RadialBar
+              className="stroke-transparent stroke-2"
+              cornerRadius={5}
               dataKey="Total"
               fill={color}
               stackId="a"
-              cornerRadius={5}
-              className="stroke-transparent stroke-2"
             />
           </RadialBarChart>
         </ChartContainer>
