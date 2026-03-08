@@ -16,13 +16,13 @@ import { AppSidebar } from '../../../components/shared/app-sidebar'
 const DashboardLayout = ({ children }: PropsWithChildren) => {
   return (
     <SidebarProvider>
-      <main className="flex w-full overflow-hidden text-foreground">
+      <main className="text-foreground flex w-full overflow-hidden">
         <AppSidebar />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 lg:justify-between">
-            <div className="-ml-1 mt-2 flex w-full items-center justify-start gap-2">
+            <div className="mt-2 -ml-1 flex w-full items-center justify-start gap-2">
               <SidebarTrigger
-                className="cursor-pointer border-transparent pl-4 pr-2 text-foreground"
+                className="text-foreground cursor-pointer border-transparent pr-2 pl-4"
                 id="sidebar-main"
               />
               <Breadcrumb>

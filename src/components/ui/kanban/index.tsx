@@ -185,7 +185,10 @@ export type KanbanHeaderProps = HTMLAttributes<HTMLDivElement>
 
 export const KanbanHeader = ({ className, ...props }: KanbanHeaderProps) => (
   <div
-    className={cn('bg-sidebar m-0 px-2 py-2.5 text-sm font-semibold', className)}
+    className={cn(
+      'bg-sidebar m-0 px-2 py-2.5 text-sm font-semibold',
+      className
+    )}
     {...props}
   />
 )

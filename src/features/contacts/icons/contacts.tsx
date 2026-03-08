@@ -19,8 +19,8 @@ export const ContactsIcon: React.FC<IconProps> = props => {
         x2="250"
         y2="110"
         stroke="#CBD5E1"
-        stroke-width="2"
-        stroke-dasharray="4 4"
+        strokeWidth="2"
+        strokeDasharray="4 4"
       />
       <line
         x1="170"
@@ -28,8 +28,8 @@ export const ContactsIcon: React.FC<IconProps> = props => {
         x2="250"
         y2="180"
         stroke="#CBD5E1"
-        stroke-width="2"
-        stroke-dasharray="4 4"
+        strokeWidth="2"
+        strokeDasharray="4 4"
       />
 
       <rect

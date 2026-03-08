@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import { useState } from 'react'
-import type { PieSectorDataItem } from 'recharts/types/polar/Pie'
 import { Label, Pie, PieChart, Sector } from 'recharts'
+import type { PieSectorDataItem } from 'recharts/types/polar/Pie'
 
 import {
   Card,
@@ -81,14 +81,10 @@ function InactiveSector({
 export function ChartPieInteractive() {
   const id = 'pie-interactive'
   const [activeItem, setActiveItem] = useState(desktopData[0]?.type ?? '')
-  const activeIndexMemo = React.useMemo(
-    () => {
-      const index = desktopData.findIndex(item => item.type === activeItem)
-      return Math.max(index, 0)
-    },
-    [activeItem]
-  )
-
+  const activeIndexMemo = React.useMemo(() => {
+    const index = desktopData.findIndex(item => item.type === activeItem)
+    return Math.max(index, 0)
+  }, [activeItem])
 
   const renderShape = React.useCallback(
     (props: any) =>
@@ -167,7 +163,7 @@ export function ChartPieInteractive() {
                       style={{
                         backgroundColor: `var(--color-${key})`
                       }}
-                      className="rounded-full my-auto flex h-3 w-3 shrink-0"
+                      className="my-auto flex h-3 w-3 shrink-0 rounded-full"
                     />
                     {config?.label}
                   </div>

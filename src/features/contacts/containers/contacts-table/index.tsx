@@ -9,7 +9,6 @@ import {
 import { ChevronDown, Filter, MoreVertical, Search, User } from 'lucide-react'
 import { useState } from 'react'
 
-import { CreateItemFrame } from '../../../../components/shared/createItemFrame'
 import { FeatureContainer } from '../../../../components/shared/FeatureContainer'
 import { formatDate } from '../../../../utils/helpers/format-date'
 import { StatusBadge } from '../../components/status-badge'
@@ -26,20 +25,7 @@ export const ContactsTableContainer = () => {
 
   return (
     <FeatureContainer>
-      <CreateItemFrame
-        title="Contatos"
-        description="Adicione e gerencie contatos na sua carteira de clientes e parceiros"
-        buttonText="Adicionar Contato"
-        onButtonClick={() => {}}
-      >
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Contacts_%28iOS%29.png"
-          alt="Contacts"
-          fetchPriority="high"
-          loading="eager"
-        />
-      </CreateItemFrame>
-      <div className="flex flex-col gap-4 rounded-md border border-gray-300 bg-white px-4 py-5 lg:gap-6">
+      <div className="flex flex-col gap-5 rounded-md border border-gray-300 bg-white px-4 py-5 lg:gap-7">
         <div className="flex items-center justify-between">
           <article className="flex flex-col">
             <h1 className="text-2xl font-semibold tracking-tight">Contatos</h1>
@@ -59,15 +45,15 @@ export const ContactsTableContainer = () => {
           <div className="relative max-w-sm flex-1">
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <input
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring w-full rounded-md border py-2 pr-3 pl-10 text-sm transition-all duration-300 focus-visible:ring-1 focus-visible:outline-none"
+              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground w-full rounded-md border py-1.5 pr-3 pl-10 text-sm transition-all duration-300 focus:border-neutral-400 focus-visible:outline-none"
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Buscar contato"
               type="text"
               value={searchQuery}
             />
           </div>
-          <button className="border-input bg-background inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-500">
-            <Filter className="text-muted-foreground h-4 w-4 transition-all duration-300 hover:text-blue-500" />
+          <button className="border-input bg-background inline-flex items-center gap-2 rounded-md border px-4 py-1.5 text-sm font-medium transition-all duration-300 hover:border-neutral-400 hover:bg-blue-50 hover:text-neutral-700">
+            <Filter className="text-muted-foreground h-4 w-4 transition-all duration-300 hover:text-neutral-700" />
             <p className="text-muted-foreground">Filtros avançados</p>
             <ChevronDown className="h-4 w-4" />
           </button>
@@ -92,13 +78,15 @@ export const ContactsTableContainer = () => {
                 filteredContacts.map(contact => (
                   <TableRow key={contact.id}>
                     <TableCell>
-                      <div className="flex items-center gap-3">
-                        <figure className="flex h-10 w-10 items-center justify-center rounded-md bg-neutral-200">
-                          <User className="text-muted-foreground h-5 w-5" />
+                      <div className="ml-1.5 flex items-center gap-3">
+                        <figure className="flex h-8 w-8 items-center justify-center rounded-md bg-neutral-200">
+                          <User className="text-muted-foreground h-4.5 w-4.5" />
                         </figure>
                         <div>
-                          <div className="font-medium">{contact.full_name}</div>
-                          <div className="text-muted-foreground text-sm">
+                          <div className="text-sm font-medium">
+                            {contact.full_name}
+                          </div>
+                          <div className="text-muted-foreground text-[13px]">
                             {contact.email}
                           </div>
                         </div>

@@ -16,7 +16,7 @@ import { AppSidebar } from '../../../components/shared/app-sidebar'
 const DealsLayout = ({ children }: PropsWithChildren) => {
   return (
     <SidebarProvider>
-      <main className="overflow-hidden flex w-full text-foreground">
+      <main className="text-foreground flex w-full overflow-hidden">
         <AppSidebar />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 lg:justify-between">
