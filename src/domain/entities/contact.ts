@@ -67,4 +67,28 @@ export class Contact {
     return Roles.SUPER_ADMIN
     // return this.props.role
   }
+
+  get full_name(): string {
+    return this.props.full_name
+  }
+
+  get created_at(): Date {
+    return this.props.created_at
+  }
+
+  get updated_at(): Date {
+    return this.props.updated_at
+  }
+
+  get phone(): string {
+    return this.props.phone
+  }
+
+  get created_by_id(): string {
+    return this.props.created_by_id || ''
+  }
+
+  get company_name(): string {
+    return this.props.company_name
+  }
 }

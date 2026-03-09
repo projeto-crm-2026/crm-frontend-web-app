@@ -18,8 +18,9 @@ export const contactSchema = z.object({
   type: z.nativeEnum(ContactType),
   source: z.nativeEnum(ContactSource).optional(),
   tags: z.array(z.string()),
-  created_at: z.string().datetime(),
-  updated_at: z.string().datetime(),
+  created_at: z.date(),
+  updated_at: z.date(),
+  deleted_at: z.date(),
   created_by_id: z.string().uuid().nullable()
 })
 
