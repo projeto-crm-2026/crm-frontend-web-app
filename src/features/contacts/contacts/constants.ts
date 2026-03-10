@@ -1,0 +1,1 @@
+export const SEARCH_CONTACTS_PAGE_LIMIT = 50

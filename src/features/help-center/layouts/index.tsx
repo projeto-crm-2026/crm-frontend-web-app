@@ -16,7 +16,7 @@ import { AppSidebar } from '../../../components/shared/app-sidebar'
 const HelpCenterLayout = ({ children }: PropsWithChildren) => {
   return (
     <SidebarProvider>
-      <main className="flex h-screen w-full overflow-hidden text-foreground">
+      <main className="text-foreground flex h-screen w-full overflow-hidden">
         <AppSidebar />
         <SidebarInset className="flex min-h-0 flex-1 flex-col overflow-hidden">
           <header className="flex h-16 shrink-0 items-center gap-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 lg:justify-between">
@@ -28,7 +28,9 @@ const HelpCenterLayout = ({ children }: PropsWithChildren) => {
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="/atendimento">Atendimento</BreadcrumbLink>
+                    <BreadcrumbLink href="/atendimento">
+                      Atendimento
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>

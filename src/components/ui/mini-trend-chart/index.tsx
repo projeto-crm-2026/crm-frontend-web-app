@@ -27,7 +27,11 @@ export function MiniTrendChart({
       className={`flex items-center gap-1.5 ${className}`}
       title={displayText}
     >
-      <div className={`p-1 ${background} flex items-center justify-center rounded-lg`}>{positive ? <TrendingUp /> : <TrendingDown />}</div>
+      <div
+        className={`p-1 ${background} flex items-center justify-center rounded-lg`}
+      >
+        {positive ? <TrendingUp /> : <TrendingDown />}
+      </div>
       <span className={`text-xs font-medium ${color} tabular-nums`}>
         {displayText}
       </span>

@@ -6,7 +6,7 @@ type SemiCircleProgressProps = {
   size?: number
   strokeWidth?: number
   className?: string
-  color?: string;
+  color?: string
 }
 
 export function SemiCircleProgress({
@@ -15,7 +15,7 @@ export function SemiCircleProgress({
   size = 200,
   strokeWidth = 14,
   className = '',
-  color= 'text-blue-600'
+  color = 'text-blue-600'
 }: SemiCircleProgressProps) {
   const clamped = Math.min(100, Math.max(0, percentage))
   const w = size
@@ -34,7 +34,9 @@ export function SemiCircleProgress({
   const pathProgress = `M ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2}`
 
   return (
-    <div className={`relative flex h-full w-full flex-col items-center${className}`}>
+    <div
+      className={`relative flex h-full w-full flex-col items-center${className}`}
+    >
       <svg
         width="100%"
         height="100%"

@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const loginRequestSchema = z.object({
   email: z.email(),
-  password: z.string().min(1),
+  password: z.string().min(1)
 })
 
 export const loginResponseSchema = z.object({
@@ -13,7 +13,7 @@ export const loginResponseSchema = z.object({
     email: z.email(),
     role: z.string(),
     status: z.string(),
-    organization_id: z.uuid(),
+    organization_id: z.uuid()
   })
 })
 

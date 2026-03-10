@@ -1,5 +1,5 @@
-import { KanbanContainer } from "./containers/kanban-container"
-import KanbanLayout from "./layouts"
+import { KanbanContainer } from './containers/kanban-container'
+import KanbanLayout from './layouts'
 
 export const DealsFeature = () => {
   return (

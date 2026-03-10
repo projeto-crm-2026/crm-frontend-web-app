@@ -24,8 +24,10 @@ import {
   LogOut,
   Sparkles
 } from 'lucide-react'
-import { logout } from '../../../../features/auth/services/auth-service'
+
 import { useNavigate } from '@tanstack/react-router'
+
+import { logout } from '../../../../features/auth/services/auth-service'
 
 export function NavUser({
   user
@@ -44,7 +46,7 @@ export function NavUser({
       .then(() => {
         navigate({ to: '/login' })
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Logout failed:', error)
       })
   }
@@ -112,7 +114,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout} className='cursor-pointer'>
+            <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
               <LogOut />
               Log out
             </DropdownMenuItem>

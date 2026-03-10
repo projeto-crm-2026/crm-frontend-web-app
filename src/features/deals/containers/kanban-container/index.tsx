@@ -1,13 +1,14 @@
+import { Building2 } from 'lucide-react'
 import { useState } from 'react'
+
 import {
-  KanbanProvider,
   KanbanBoard,
-  KanbanHeader,
+  KanbanCard,
   KanbanCards,
-  KanbanCard
+  KanbanHeader,
+  KanbanProvider
 } from '../../../../components/ui/kanban'
 import { formatCurrency } from '../../../../utils/helpers/format-currency'
-import { Building2 } from 'lucide-react'
 import { StatusBadge } from '../../components/status-badge'
 
 type Deal = {
@@ -279,7 +280,7 @@ export const KanbanContainer = () => {
   }
 
   return (
-    <div className="kanban-scroll mb-1 h-full w-full max-w-full overflow-x-scroll p-4 flex flex-col gap-6 lg:gap-8">
+    <div className="kanban-scroll mb-1 flex h-full w-full max-w-full flex-col gap-6 overflow-x-scroll p-4 lg:gap-8">
       <article className="flex flex-col">
         <h1 className="text-2xl font-semibold tracking-tight">Meu Kankan</h1>
         <p className="text-muted-foreground mt-1 text-sm">

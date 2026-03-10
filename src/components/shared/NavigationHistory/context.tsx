@@ -1,54 +1,53 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { type ReactNode, createContext, useContext, useState } from 'react'
 
 export type BreadItem = {
-  title: string;
-  url: string;
-};
+  title: string
+  url: string
+}
 
 export type NavigationHistoryState = {
-  main: BreadItem;
-  items: BreadItem[];
-};
+  main: BreadItem
+  items: BreadItem[]
+}
 
 type NavigationHistoryContextValue = {
-  history: NavigationHistoryState;
-  setHistory: React.Dispatch<React.SetStateAction<NavigationHistoryState>>;
-};
+  history: NavigationHistoryState
+  setHistory: React.Dispatch<React.SetStateAction<NavigationHistoryState>>
+}
 
 const NavigationHistoryContext = createContext<
   NavigationHistoryContextValue | undefined
->(undefined);
+>(undefined)
 
 const defaultHistory: NavigationHistoryState = {
-  main: { title: "Map", url: "/" },
-  items: [],
-};
+  main: { title: 'Map', url: '/' },
+  items: []
+}
 
 type NavigationHistoryProviderProps = {
-  children: ReactNode;
-  initialState?: NavigationHistoryState;
-};
+  children: ReactNode
+  initialState?: NavigationHistoryState
+}
 
 export function NavigationHistoryProvider({
   children,
-  initialState = defaultHistory,
+  initialState = defaultHistory
 }: NavigationHistoryProviderProps) {
-  const [history, setHistory] =
-    useState<NavigationHistoryState>(initialState);
+  const [history, setHistory] = useState<NavigationHistoryState>(initialState)
 
   return (
     <NavigationHistoryContext.Provider value={{ history, setHistory }}>
       {children}
     </NavigationHistoryContext.Provider>
-  );
+  )
 }
 
 export function useNavigationHistory() {
-  const context = useContext(NavigationHistoryContext);
+  const context = useContext(NavigationHistoryContext)
   if (context === undefined) {
     throw new Error(
-      "useNavigationHistory must be used within a NavigationHistoryProvider"
-    );
+      'useNavigationHistory must be used within a NavigationHistoryProvider'
+    )
   }
-  return context;
+  return context
 }

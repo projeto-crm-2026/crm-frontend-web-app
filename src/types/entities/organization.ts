@@ -16,8 +16,8 @@ export const OrganizationSchema = z.object({
   plan: z.enum(['free', 'professional', 'enterprise']),
   settings: OrganizationSettingsSchema,
   is_active: z.boolean(),
-  created_at: z.string().datetime(),
-  updated_at: z.string().datetime()
+  created_at: z.date(),
+  updated_at: z.date()
 })
 
 export type Organization = z.infer<typeof OrganizationSchema>

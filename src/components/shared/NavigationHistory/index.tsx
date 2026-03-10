@@ -1,20 +1,20 @@
 import {
   Breadcrumb,
-  BreadcrumbLink,
   BreadcrumbItem,
+  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "crm-project-ui";
+  BreadcrumbSeparator
+} from 'crm-project-ui'
 
-import { useNavigationHistory } from "./context";
+import { useNavigationHistory } from './context'
 
-export { NavigationHistoryProvider, useNavigationHistory } from "./context";
-export type { BreadItem, NavigationHistoryState } from "./context";
+export { NavigationHistoryProvider, useNavigationHistory } from './context'
+export type { BreadItem, NavigationHistoryState } from './context'
 
 export const NavigationHistory = () => {
-  const { history } = useNavigationHistory();
-  const { main, items } = history;
+  const { history } = useNavigationHistory()
+  const { main, items } = history
 
   return (
     <Breadcrumb>
@@ -23,7 +23,7 @@ export const NavigationHistory = () => {
           <BreadcrumbLink href={main.url}>{main.title}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
-        {items.map((item) => (
+        {items.map(item => (
           <div key={`${item.url}-${item.title}`}>
             <BreadcrumbItem>
               <BreadcrumbLink href={item.url}>{item.title}</BreadcrumbLink>
@@ -33,5 +33,5 @@ export const NavigationHistory = () => {
         ))}
       </BreadcrumbList>
     </Breadcrumb>
-  );
-};
+  )
+}

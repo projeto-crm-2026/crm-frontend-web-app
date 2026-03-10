@@ -1,6 +1,7 @@
+import { Button, Input } from 'crm-project-ui'
 import { Loader2, MessageSquare, Send } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Button, Input } from 'crm-project-ui'
+
 import { cn } from '../../../lib/utils'
 import type { Chat, Message } from '../types/chat'
 import { MessageBubble } from './message-bubble'
@@ -16,7 +17,7 @@ export function MessageArea({
   chat,
   messages,
   isLoading,
-  onSend,
+  onSend
 }: Readonly<MessageAreaProps>) {
   const [input, setInput] = useState('')
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -31,7 +32,6 @@ export function MessageArea({
     const currentCount = messages.length
     prevMessageCountRef.current = currentCount
 
-
     if (currentCount > prevCount && prevCount > 0) {
       const newMsgs = messages.slice(prevCount)
       const ids = new Set<number | string>(
@@ -42,13 +42,12 @@ export function MessageArea({
       const timeout = setTimeout(() => setNewMessageIds(new Set()), 400)
       return () => clearTimeout(timeout)
     }
-
   }, [messages])
 
   const scrollToBottom = useCallback((smooth = true) => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({
-        behavior: smooth ? 'smooth' : 'instant',
+        behavior: smooth ? 'smooth' : 'instant'
       })
     }
   }, [])
@@ -79,13 +78,13 @@ export function MessageArea({
 
   if (!chat) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 bg-background text-muted-foreground">
-        <div className="rounded-2xl bg-muted/50 p-6">
+      <div className="bg-background text-muted-foreground flex flex-1 flex-col items-center justify-center gap-3">
+        <div className="bg-muted/50 rounded-2xl p-6">
           <MessageSquare className="h-12 w-12" />
         </div>
         <div className="text-center">
           <p className="text-sm font-medium">Nenhuma conversa selecionada</p>
-          <p className="text-xs text-muted-foreground/70">
+          <p className="text-muted-foreground/70 text-xs">
             Selecione uma conversa ao lado para começar
           </p>
         </div>
@@ -95,46 +94,45 @@ export function MessageArea({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="flex shrink-0 items-center gap-3 border-b border-border bg-white px-6 py-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+      <div className="border-border flex shrink-0 items-center gap-3 border-b bg-white px-6 py-3">
+        <div className="bg-primary/10 text-primary flex h-9 w-9 items-center justify-center rounded-full">
           <MessageSquare className="h-4 w-4" />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-semibold text-foreground">
+          <p className="text-foreground text-sm font-semibold">
             Chat #{chat.id}
           </p>
-          <p className="text-xs text-muted-foreground">
-            Origem do chat: {chat.origin} - Status: {chat.status === 'open' ? 'Online' : 'Offline'}
+          <p className="text-muted-foreground text-xs">
+            Origem do chat: {chat.origin} - Status:{' '}
+            {chat.status === 'open' ? 'Online' : 'Offline'}
           </p>
         </div>
         <span
           className={cn(
             'h-2.5 w-2.5 rounded-full',
-            chat.status === 'open'
-              ? 'bg-green-500'
-              : 'bg-muted-foreground/40'
+            chat.status === 'open' ? 'bg-green-500' : 'bg-muted-foreground/40'
           )}
         />
       </div>
 
       <div
         ref={scrollContainerRef}
-        className="chat-scroll min-h-0 flex-1 overflow-y-auto bg-background px-6 py-4"
+        className="chat-scroll bg-background min-h-0 flex-1 overflow-y-auto px-6 py-4"
       >
         {isLoading ? (
           <div className="flex h-full items-center justify-center">
             <div className="flex flex-col items-center gap-2">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
-              <p className="text-xs text-muted-foreground">
+              <Loader2 className="text-primary h-6 w-6 animate-spin" />
+              <p className="text-muted-foreground text-xs">
                 Carregando mensagens...
               </p>
             </div>
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
+          <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-2">
             <MessageSquare className="h-8 w-8" />
             <p className="text-sm">Nenhuma mensagem ainda</p>
-            <p className="text-xs text-muted-foreground/70">
+            <p className="text-muted-foreground/70 text-xs">
               Envie a primeira mensagem
             </p>
           </div>
@@ -156,14 +154,14 @@ export function MessageArea({
         )}
       </div>
 
-      <div className="shrink-0 border-t border-border bg-white px-6 py-4">
+      <div className="border-border shrink-0 border-t bg-white px-6 py-4">
         <div className="flex items-center gap-3">
           <Input
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Digite sua mensagem..."
-            className="flex-1 rounded-xl border-border bg-muted/30 px-4 py-2.5 focus-visible:ring-primary/30"
+            className="border-border bg-muted/30 focus-visible:ring-primary/30 flex-1 rounded-xl px-4 py-2.5"
             disabled={chat.status !== 'open'}
           />
           <Button
