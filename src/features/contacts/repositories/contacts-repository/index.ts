@@ -31,7 +31,7 @@ export class ContactsRepository {
         .map(contact => new Contact(contact))
     }
 
-    const { data } = await api.get(`/v1/contacts/search`)
+    const { data } = await api.get(`/v1/contacts`)
 
     return z
       .array(contactSchema)
