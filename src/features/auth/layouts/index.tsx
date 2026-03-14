@@ -20,8 +20,8 @@ export function AuthLayout({ children }: PropsWithChildren) {
         </p>
       </div>
 
-      <div className="bg-background flex flex-1 items-center justify-center px-6 py-12">
-        <div className="w-full max-w-sm"> {children} </div>
+      <div className="flex flex-1 items-center justify-center bg-neutral-100 px-6 py-12">
+        <div className="flex w-full justify-center"> {children} </div>
       </div>
     </div>
   )
