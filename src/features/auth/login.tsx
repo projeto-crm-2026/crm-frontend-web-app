@@ -19,7 +19,11 @@ export function LoginFeature() {
     <AuthLayout>
       <div className="flex h-[30rem] w-[60rem] justify-between">
         <div className="h-full w-2/3">
-          <img src="login.webp" className="h-full w-full" />
+          <img
+            src="login.webp"
+            className="h-full w-full"
+            alt="Imagem ilustrativa sobre gestão"
+          />
         </div>
         <div className="w-1/3 space-y-6 rounded-tr-2xl rounded-br-2xl border bg-white p-15 shadow-xl shadow-stone-800">
           <div className="space-y-2 text-center">
