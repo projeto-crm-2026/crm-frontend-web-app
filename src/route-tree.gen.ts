@@ -17,6 +17,7 @@ import { Route as AppCrmEmpresasIndexRouteImport } from './routes/_app/crm/empre
 import { Route as AppCrmDealsIndexRouteImport } from './routes/_app/crm/deals/index'
 import { Route as AppCrmContatosIndexRouteImport } from './routes/_app/crm/contatos/index'
 import { Route as AppCrmAnotationsIndexRouteImport } from './routes/_app/crm/anotations/index'
+import { Route as AppConfiguracoesIntegracoesIndexRouteImport } from './routes/_app/configuracoes/integracoes/index'
 import { Route as AppConfiguracoesGeralIndexRouteImport } from './routes/_app/configuracoes/geral/index'
 import { Route as AppAtendimentoCentralAjudaIndexRouteImport } from './routes/_app/atendimento/central-ajuda/index'
 
@@ -59,6 +60,12 @@ const AppCrmAnotationsIndexRoute = AppCrmAnotationsIndexRouteImport.update({
   path: '/crm/anotations/',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppConfiguracoesIntegracoesIndexRoute =
+  AppConfiguracoesIntegracoesIndexRouteImport.update({
+    id: '/configuracoes/integracoes/',
+    path: '/configuracoes/integracoes/',
+    getParentRoute: () => AppLayoutRoute,
+  } as any)
 const AppConfiguracoesGeralIndexRoute =
   AppConfiguracoesGeralIndexRouteImport.update({
     id: '/configuracoes/geral/',
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/login/': typeof AppLoginIndexRoute
   '/atendimento/central-ajuda/': typeof AppAtendimentoCentralAjudaIndexRoute
   '/configuracoes/geral/': typeof AppConfiguracoesGeralIndexRoute
+  '/configuracoes/integracoes/': typeof AppConfiguracoesIntegracoesIndexRoute
   '/crm/anotations/': typeof AppCrmAnotationsIndexRoute
   '/crm/contatos/': typeof AppCrmContatosIndexRoute
   '/crm/deals/': typeof AppCrmDealsIndexRoute
@@ -89,6 +97,7 @@ export interface FileRoutesByTo {
   '/login': typeof AppLoginIndexRoute
   '/atendimento/central-ajuda': typeof AppAtendimentoCentralAjudaIndexRoute
   '/configuracoes/geral': typeof AppConfiguracoesGeralIndexRoute
+  '/configuracoes/integracoes': typeof AppConfiguracoesIntegracoesIndexRoute
   '/crm/anotations': typeof AppCrmAnotationsIndexRoute
   '/crm/contatos': typeof AppCrmContatosIndexRoute
   '/crm/deals': typeof AppCrmDealsIndexRoute
@@ -102,6 +111,7 @@ export interface FileRoutesById {
   '/_app/login/': typeof AppLoginIndexRoute
   '/_app/atendimento/central-ajuda/': typeof AppAtendimentoCentralAjudaIndexRoute
   '/_app/configuracoes/geral/': typeof AppConfiguracoesGeralIndexRoute
+  '/_app/configuracoes/integracoes/': typeof AppConfiguracoesIntegracoesIndexRoute
   '/_app/crm/anotations/': typeof AppCrmAnotationsIndexRoute
   '/_app/crm/contatos/': typeof AppCrmContatosIndexRoute
   '/_app/crm/deals/': typeof AppCrmDealsIndexRoute
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/login/'
     | '/atendimento/central-ajuda/'
     | '/configuracoes/geral/'
+    | '/configuracoes/integracoes/'
     | '/crm/anotations/'
     | '/crm/contatos/'
     | '/crm/deals/'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/atendimento/central-ajuda'
     | '/configuracoes/geral'
+    | '/configuracoes/integracoes'
     | '/crm/anotations'
     | '/crm/contatos'
     | '/crm/deals'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
     | '/_app/login/'
     | '/_app/atendimento/central-ajuda/'
     | '/_app/configuracoes/geral/'
+    | '/_app/configuracoes/integracoes/'
     | '/_app/crm/anotations/'
     | '/_app/crm/contatos/'
     | '/_app/crm/deals/'
@@ -206,6 +219,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCrmAnotationsIndexRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/configuracoes/integracoes/': {
+      id: '/_app/configuracoes/integracoes/'
+      path: '/configuracoes/integracoes'
+      fullPath: '/configuracoes/integracoes/'
+      preLoaderRoute: typeof AppConfiguracoesIntegracoesIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/configuracoes/geral/': {
       id: '/_app/configuracoes/geral/'
       path: '/configuracoes/geral'
@@ -229,6 +249,7 @@ interface AppLayoutRouteChildren {
   AppLoginIndexRoute: typeof AppLoginIndexRoute
   AppAtendimentoCentralAjudaIndexRoute: typeof AppAtendimentoCentralAjudaIndexRoute
   AppConfiguracoesGeralIndexRoute: typeof AppConfiguracoesGeralIndexRoute
+  AppConfiguracoesIntegracoesIndexRoute: typeof AppConfiguracoesIntegracoesIndexRoute
   AppCrmAnotationsIndexRoute: typeof AppCrmAnotationsIndexRoute
   AppCrmContatosIndexRoute: typeof AppCrmContatosIndexRoute
   AppCrmDealsIndexRoute: typeof AppCrmDealsIndexRoute
@@ -241,6 +262,7 @@ const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppLoginIndexRoute: AppLoginIndexRoute,
   AppAtendimentoCentralAjudaIndexRoute: AppAtendimentoCentralAjudaIndexRoute,
   AppConfiguracoesGeralIndexRoute: AppConfiguracoesGeralIndexRoute,
+  AppConfiguracoesIntegracoesIndexRoute: AppConfiguracoesIntegracoesIndexRoute,
   AppCrmAnotationsIndexRoute: AppCrmAnotationsIndexRoute,
   AppCrmContatosIndexRoute: AppCrmContatosIndexRoute,
   AppCrmDealsIndexRoute: AppCrmDealsIndexRoute,

@@ -21,7 +21,7 @@ export function LoginFeature() {
         <div className="h-full w-2/3">
           <img
             src="login.webp"
-            className="h-full w-full"
+            className="h-full w-full rounded-tl-2xl rounded-bl-2xl object-cover"
             alt="Imagem ilustrativa sobre gestão"
           />
         </div>
