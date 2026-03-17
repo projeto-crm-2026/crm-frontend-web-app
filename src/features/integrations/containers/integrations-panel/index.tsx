@@ -1,10 +1,11 @@
-import { ChevronRight, Key, Puzzle, Webhook } from 'lucide-react'
+import { ChevronRight, Download, Key, Puzzle, Webhook } from 'lucide-react'
 import { useState } from 'react'
 
 import { ApiKeysSection } from './sections/api-keys'
+import { IncomingTokensSection } from './sections/incoming-tokens'
 import { WebhooksSection } from './sections/webhooks'
 
-type IntegrationTab = 'api-keys' | 'webhooks'
+type IntegrationTab = 'api-keys' | 'webhooks' | 'incoming-tokens'
 
 const TABS: {
   id: IntegrationTab
@@ -12,7 +13,8 @@ const TABS: {
   icon: React.ElementType
 }[] = [
   { id: 'api-keys', label: 'Chaves de API', icon: Key },
-  { id: 'webhooks', label: 'Webhooks', icon: Webhook }
+  { id: 'webhooks', label: 'Webhooks', icon: Webhook },
+  { id: 'incoming-tokens', label: 'Webhooks de Entrada', icon: Download }
 ]
 
 export const IntegrationsPanelContainer = () => {
@@ -24,6 +26,8 @@ export const IntegrationsPanelContainer = () => {
         return <ApiKeysSection />
       case 'webhooks':
         return <WebhooksSection />
+      case 'incoming-tokens':
+        return <IncomingTokensSection />
     }
   }
 
