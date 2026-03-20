@@ -10,37 +10,41 @@ import type { contactSchema } from '../../../../types/entities/contact'
 export type ContactResponse = z.infer<typeof contactSchema>
 
 export interface CreateContactPayload {
-  full_name: string
-  email: string
-  phone: string
-  company_name: string
-  status: LeadStatus
   type: ContactType
+  first_name: string
+  last_name?: string
+  company_name?: string
+  email?: string
+  phone?: string
+  status?: LeadStatus
   source?: ContactSource
   tags?: string[]
-  address?: {
-    street?: string
-    city?: string
-    state?: string
-    country?: string
-    zip_code?: string
-  }
+  street?: string
+  number?: string
+  complement?: string
+  district?: string
+  city?: string
+  state?: string
+  zip_code?: string
+  country?: string
 }
 
 export interface UpdateContactPayload {
-  full_name?: string
+  first_name?: string
+  last_name?: string
+  company_name?: string
   email?: string
   phone?: string
-  company_name?: string
   status?: LeadStatus
   type?: ContactType
   source?: ContactSource
   tags?: string[]
-  address?: {
-    street?: string
-    city?: string
-    state?: string
-    country?: string
-    zip_code?: string
-  }
+  street?: string
+  number?: string
+  complement?: string
+  district?: string
+  city?: string
+  state?: string
+  zip_code?: string
+  country?: string
 }

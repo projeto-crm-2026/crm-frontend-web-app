@@ -32,7 +32,8 @@ export const ContactsTableContainer = () => {
     return data.filter(
       contact =>
         contact.full_name.toLowerCase().includes(query) ||
-        contact.email.toLowerCase().includes(query)
+        contact.email.toLowerCase().includes(query) ||
+        contact.company_name.toLowerCase().includes(query)
     )
   }, [data, searchQuery])
 

@@ -11,7 +11,7 @@ export const useCreateContact = () => {
     mutationFn: (payload: CreateContactPayload) =>
       ContactsRepository.createContact({ payload }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [contactQueryKeys] })
+      queryClient.invalidateQueries({ queryKey: contactQueryKeys.all })
     }
   })
 

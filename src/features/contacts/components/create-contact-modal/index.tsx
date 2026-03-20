@@ -64,7 +64,16 @@ export const CreateContactModal = ({
 
   const onSubmit = async (values: CreateContactFormValues) => {
     try {
-      await createContact(values)
+      await createContact({
+        first_name: values.full_name,
+        type: values.type,
+        status: values.status,
+        email: values.email || undefined,
+        phone: values.phone || undefined,
+        company_name: values.company_name || undefined,
+        source: values.source,
+        tags: values.tags
+      })
       handleClose()
     } catch (error) {
       console.log(error)

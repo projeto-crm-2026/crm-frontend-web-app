@@ -8,22 +8,19 @@ import {
 
 export const createContactSchema = z.object({
   full_name: z.string().min(1, 'Nome é obrigatório'),
-  email: z.string().email('E-mail inválido'),
-  phone: z.string().min(1, 'Telefone é obrigatório'),
-  company_name: z.string().min(1, 'Empresa é obrigatória'),
-  status: z.nativeEnum(LeadStatus, 'Status é obrigatório'),
-  type: z.nativeEnum(ContactType, 'Tipo é obrigatório'),
-  source: z.nativeEnum(ContactSource).optional(),
-  tags: z.array(z.string()).optional(),
-  address: z
-    .object({
-      street: z.string().optional(),
-      city: z.string().optional(),
-      state: z.string().optional(),
-      country: z.string().optional(),
-      zip_code: z.string().optional()
-    })
-    .optional()
+  email: z.union([z.email('E-mail inválido'), z.literal('')]).optional(),
+  phone: z.string().optional(),
+  company_name: z.string().optional(),
+  status: z.enum(Object.values(LeadStatus) as [LeadStatus, ...LeadStatus[]], {
+    error: 'Status é obrigatório'
+  }),
+  type: z.enum(Object.values(ContactType) as [ContactType, ...ContactType[]], {
+    error: 'Tipo é obrigatório'
+  }),
+  source: z
+    .enum(Object.values(ContactSource) as [ContactSource, ...ContactSource[]])
+    .optional(),
+  tags: z.array(z.string()).optional()
 })
 
 export type CreateContactFormValues = z.infer<typeof createContactSchema>

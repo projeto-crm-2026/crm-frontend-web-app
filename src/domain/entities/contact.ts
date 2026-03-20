@@ -46,7 +46,7 @@ export class Contact {
   }
 
   get email(): string {
-    return this.props.email
+    return this.props.email ?? ''
   }
 
   get status(): LeadStatus {
@@ -59,13 +59,11 @@ export class Contact {
 
   get source(): ContactSource {
     if (this.props.source) return this.props.source
-
     return ContactSource.OTHER
   }
 
   get role(): Roles {
     return Roles.SUPER_ADMIN
-    // return this.props.role
   }
 
   get full_name(): string {
@@ -81,14 +79,14 @@ export class Contact {
   }
 
   get phone(): string {
-    return this.props.phone
+    return this.props.phone ?? ''
   }
 
   get created_by_id(): string {
-    return this.props.created_by_id || ''
+    return this.props.created_by_id?.toString() ?? ''
   }
 
   get company_name(): string {
-    return this.props.company_name
+    return this.props.company_name ?? ''
   }
 }
