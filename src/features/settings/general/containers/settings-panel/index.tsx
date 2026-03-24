@@ -1,5 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from 'crm-project-ui'
-import { ChevronRight, LogOut, Settings } from 'lucide-react'
+import { ChevronRight, Settings } from 'lucide-react'
 import { useState } from 'react'
 
 import { GROUPS, NAV_ITEMS } from '../../constants'
@@ -10,12 +9,6 @@ import { MembersSection } from './sections/members'
 import { NotificationsSection } from './sections/notifications'
 import { OrganizationSection } from './sections/organization'
 import { SecuritySection } from './sections/security'
-
-const user = {
-  name: 'shadcn',
-  email: 'm@example.com',
-  avatar: '/avatars/shadcn.jpg'
-}
 
 export const SettingsPanelContainer = () => {
   const [active, setActive] = useState<SettingSection>('organization')
@@ -78,27 +71,6 @@ export const SettingsPanelContainer = () => {
             </div>
           ))}
         </nav>
-
-        <div className="mt-auto border-t border-gray-100 px-3 py-3">
-          <div className="flex items-center gap-2.5 rounded-md px-2 py-2">
-            <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage alt={user.name} src={user.avatar} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-            </Avatar>
-            <div className="flex min-w-0 flex-col gap-0">
-              <span className="truncate text-xs font-medium text-gray-700">
-                Lucas Ferreira
-              </span>
-              <span className="truncate text-[10px] text-gray-400">
-                lucas@empresa.com.br
-              </span>
-            </div>
-          </div>
-          <button className="mt-1 flex w-full items-center gap-2 rounded-md px-2 py-2 text-xs text-gray-500 transition-all hover:bg-gray-50 hover:text-red-500">
-            <LogOut className="h-3.5 w-3.5" />
-            Sair
-          </button>
-        </div>
       </aside>
 
       <main className="flex flex-1 flex-col gap-8 lg:pl-8 xl:pl-10">

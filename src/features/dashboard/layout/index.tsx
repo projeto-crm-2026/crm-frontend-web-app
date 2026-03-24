@@ -16,9 +16,9 @@ import { AppSidebar } from '../../../components/shared/app-sidebar'
 const DashboardLayout = ({ children }: PropsWithChildren) => {
   return (
     <SidebarProvider>
-      <main className="text-foreground flex w-full overflow-hidden">
+      <main className="text-foreground flex h-screen w-full overflow-hidden">
         <AppSidebar />
-        <SidebarInset>
+        <SidebarInset className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           <header className="flex h-16 shrink-0 items-center gap-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 lg:justify-between">
             <div className="mt-2 -ml-1 flex w-full items-center justify-start gap-2">
               <SidebarTrigger
